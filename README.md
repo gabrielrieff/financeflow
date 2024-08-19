@@ -1,36 +1,62 @@
-SRC - - Api: Dentro do projeto API vamos ter a casca da nossa api, vai ser o projeto onde o usuario/frontend vai ter acesso para fazer requisiçoes, vai ser um tipo de porta para nosso banco de dados, não vai ter acesso ao banco de dedos, somente a regras de negocio;
+## Sobre
 
-    - Application: Aplication onde vamos ter nossas regras de negocio, vamos ter interfaces para dizer quais metodos precisamos aplicar e o que ele precisa retornar, mas não vai no dizer como precisamos aplciar, desde quje retorne o vamos pedido.
+Esta é uma API desenvolvida utilizando **.NET 8**, com princípios do **Domain-Driven Design (DDD)** para fornecer uma solução estruturada e eficaz no gerenciamento de despesas pessoais. O principal objetivo é permitir ao usuário registrar suas despesas, detalhando algumas informações essenciais como título, data descrição, valor e forma de pagamento, utilizando uma forma segura de armazenar os dados, com o banco de dados **MySQL**.
 
-        - Utilizara nosso projeto de Domains para acessar os metodos aplicados no banco de dados;
-        - Utilizara nosso projeto de Communication para acessar a forma como devemos receber nossos dados;
-        -
+A arquitetura da API segue em REST, utilizando métodos HTTP padrão para uma comunicação eficiente e simplificada.
 
-    - Communication: Basicamente onde vamos classes dizendo o que as requests e responses devem retornar;
+Dentre os pacotes NuGet utilizados, o AutoMapper é responsável pelo mapeamento  entre objetos de domínio e requisição/resposta, reduzindo a necessidade de código repetitivo e manual. O FluentAssertivo é utilizado nos testes de unidade para tornar as verificações mais legíveis, ajudando a escrever testes claros e compreensíveis. Para as validações, o FluentValidation é usado para implementar regras de validação de formas simples e intuitivas nas classes de requisições, mantendo o código limpo e fácil de manter. Por fim, o EntityFramework atua como ORM que simplifica as interações com o banco de dados, permitindo o uso de objetos .NET para manipular dados diretamente, sem a necessidade de lidar com consultas SQL.
 
-    - Domains: Onde vamos ter nossas entidades utilizadas nos projetos e onde vamos ter nossas interfaces dizer quais metodos devemos ter dentro do nosso banco de dados e quais dados esses metodos devem receber e retornar;
+![home-image]
 
-    - Exception: Onde teremos nossas tratativas personalizadas de erro;
+### Features
 
-    - Infrastructure - Onde temos nossa real cominicação com nosso/nossos banco de dados e serviços externos.
+- **Domain-Driven Designer (DDD)**: Estrutura modular que facilita o entendimento e a manutenção do domínio da aplicação.
+- **Testes de unidade**: Testes abrangentes com FluentAssention para garantir a funcionalidade e a qualidade.
+- **Geração de Relatórios**: Capacidade de exportar documentos detalhados em PDF e Excel, oferecendo uma análise visual e eficaz das despesas.
+- **RESTful API com documentação Swagger**: Interface documentada que facilita a interação e o teste por parte dos desenvolvedores.
 
-- Injeção de dependencia:
+### Constrido com
 
-Seu resumo sobre injeção de dependência está correto em essência, mas pode ser aprimorado com alguns detalhes para maior clareza e precisão. Aqui está uma versão revisada:
+![badge-dot-net]
+![badge-windows]
+![badge-visual-studio]
+![badge-mysql]
+![badge-swagger]
 
-"Injeção de dependência é um padrão de design utilizado para desacoplar as dependências entre componentes de um sistema. Em vez de uma classe instanciar suas dependências diretamente (por exemplo, a classe A criar uma nova instância da classe B), essas dependências são fornecidas à classe A externamente. Isso é feito criando uma variável do tipo B dentro da classe A e, em seguida, definindo um construtor na classe A que recebe uma instância de B como parâmetro e a atribui à variável correspondente. Dessa forma, a classe A não precisa saber como instanciar B, permitindo maior flexibilidade e facilidade de testes unitários."
+## Getting started
 
-Aqui estão alguns pontos adicionais que podem ajudar a entender melhor o conceito:
+para obter uma copia local funcionando, siga estes passos simples.
 
-Inversão de Controle (IoC): A injeção de dependência é uma forma de implementar o princípio de inversão de controle, onde a criação e a gestão das dependências são delegadas a um contêiner ou framework IoC.
+### Requisitos
 
-Tipos de Injeção de Dependência:
+* Visual Studio versão 2022+ ou Visual studio code
+* Windowns 10+ ou Linux/MecOS com [.NET SDK][dot-net-skd] instalado
+* MySql
 
-Injeção por Construtor: A dependência é passada através do construtor da classe.
-Injeção por Setter: A dependência é passada através de métodos setter.
-Injeção de Interface: A dependência é passada através de interfaces.
-Benefícios:
+### Instação
 
-Facilidade de Testes: Dependências podem ser facilmente substituídas por mocks ou stubs em testes unitários.
-Desacoplamento: As classes não precisam saber como instanciar suas dependências, o que reduz o acoplamento.
-Flexibilidade: É mais fácil trocar implementações de dependências sem modificar o código da classe que depende delas.
+1. Clone o repositorio: 
+
+    ```sh
+    git clone https://github.com/gabrielrieff/financeflow.git
+    ```
+
+2. Preencha as informações no arquivo `appsettings.Develepment.json`.
+3. Execute a API e aproveite.
+
+
+
+
+
+<!-- Links -->
+[dot-net-skd]: https://dotnet.microsoft.com/pt-br/download/dotnet/8.0
+
+<!-- images -->
+[home-image]: imagens/heroimage.png
+
+<!-- Badges -->
+[badge-dot-net]: https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=fff&style=for-the-badge
+[badge-windows]:https://img.shields.io/badge/windows-blue?logo=windows&logoColor=white&style=for-the-badge
+[badge-visual-studio]: https://img.shields.io/badge/Visual%20Studio-5C2D91?logo=visualstudio&logoColor=fff&style=for-the-badge
+[badge-mysql]: https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff&style=for-the-badge
+[badge-swagger]: https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=000&style=for-the-badge
