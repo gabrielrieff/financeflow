@@ -1,5 +1,6 @@
 using AutoMapper;
 using FinanceFlow.Communication.Requests;
+using FinanceFlow.Communication.Requests.Users;
 using FinanceFlow.Communication.Responses;
 using FinanceFlow.Domain.Entities;
 
@@ -16,12 +17,17 @@ public class AutoMapping : Profile
     private void RequestToEntity()
     {
         CreateMap<RequestExpenseJson, Expense>();
+        CreateMap<RequestUserJson, User>()
+            .ForMember(dest => dest.Password, config => config.Ignore());
     }
 
     private void EntityToResponse()
     {
+        //Expense
         CreateMap<Expense, ResponseShortExpenseJson>();
         CreateMap<Expense, RequestExpenseJson>();
         CreateMap<Expense, ResponseRegisteredExpensesJson>();
+
+        //User
     }
 }

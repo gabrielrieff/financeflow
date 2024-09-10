@@ -3,6 +3,7 @@ using FinanceFlow.Api.Filters;
 using FinanceFlow.Application;
 using FinanceFlow.Api.middleware;
 using FinanceFlow.Infrastructure;
+using FinanceFlow.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,4 +32,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await MigrateDataBase();
+
 app.Run();
+
+async Task MigrateDataBase()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+
+    await DataBaseMigration.MigrateDataBase(scope.ServiceProvider);
+}

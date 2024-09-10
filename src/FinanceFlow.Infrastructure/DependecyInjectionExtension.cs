@@ -1,6 +1,9 @@
 ﻿using FinanceFlow.Domain.Repositories.Expenses;
+using FinanceFlow.Domain.Repositories.Users;
+using FinanceFlow.Domain.Security.Cryptography;
 using FinanceFlow.Infrastructure.DataAccess;
-using FinanceFlow.Infrastructure.DataAccess.Repositories;
+using FinanceFlow.Infrastructure.DataAccess.Repositories.Expenses;
+using FinanceFlow.Infrastructure.DataAccess.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,14 +17,23 @@ public static class DependecyInjectionExtension
     {
         AddDbContext(services, configuration);
         AddRepositories(services);
+
+        services.AddScoped<IPassawordEncripter, Security.BCrypt>();
     }
 
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepositorioes>();
-        services.AddScoped<IExpensesWhiteOnlyRepository, ExpensesRepositorioes>();
-        services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepositorioes>();
+
+        //User
+        services.AddScoped<IUserReadOnlyRepository, UserRepositories>();
+        services.AddScoped<IUserWhiteOnlyRepository, UserRepositories>();
+
+        //Expense
+        services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepositories>();
+        services.AddScoped<IExpensesWhiteOnlyRepository, ExpensesRepositories>();
+        services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepositories>();
+
     }
     
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

@@ -5,6 +5,7 @@ using FinanceFlow.Application.UseCases.Expenses.GetAll;
 using FinanceFlow.Application.UseCases.Expenses.Register;
 using FinanceFlow.Application.UseCases.Expenses.Report;
 using FinanceFlow.Application.UseCases.Expenses.Update;
+using FinanceFlow.Application.UseCases.Users.Register;
 using Microsoft.Extensions.DependencyInjection;
 namespace FinanceFlow.Api;
 
@@ -22,6 +23,8 @@ public static class DependecyInjectionExtension
     }
     private static void AddUseCases(IServiceCollection services)
     {
+
+        //Expenses
         services.AddScoped<IRegisterExpensesUseCase, RegisterExpensesUseCase>();
         services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
         services.AddScoped<IGetExpenseUseCase, GetExpenseUseCase>();
@@ -29,5 +32,9 @@ public static class DependecyInjectionExtension
         services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
         services.AddScoped<IGenerateExpensesReportExcelUseCase, GenerateExpensesReportExcelUseCase>();
         services.AddScoped<IGenerateExpensesReportPDFUseCase, GenerateExpensesReportPDFUseCase>();
+
+
+        //User
+        services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
     }
 }
