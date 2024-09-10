@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FinanceFlow.Exception {
+namespace FinanceFlow.Exception.Resource {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FinanceFlow.Exception {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FinanceFlow.Exception.ResourceErrorsMessage", typeof(ResourceErrorsMessage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FinanceFlow.Exception.Resource.ResourceErrorsMessage", typeof(ResourceErrorsMessage).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,6 +70,33 @@ namespace FinanceFlow.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email already registered..
+        /// </summary>
+        public static string EMAIL_EXIST {
+            get {
+                return ResourceManager.GetString("EMAIL_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is not valid.
+        /// </summary>
+        public static string EMAIL_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email is required..
+        /// </summary>
+        public static string EMAIL_REQUIRED {
+            get {
+                return ResourceManager.GetString("EMAIL_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expenses cannot be for the future..
         /// </summary>
         public static string EXPENSES_CANNOT_FOR_THE_FUTURE {
@@ -84,6 +111,24 @@ namespace FinanceFlow.Exception {
         public static string EXPENSES_NOT_FOUND {
             get {
                 return ResourceManager.GetString("EXPENSES_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must have at least 8 characters, containing at least one uppercase letter, one lowercase letter, one number and one special character (for example, !, ?, *, .)..
+        /// </summary>
+        public static string INVALID_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name is required..
+        /// </summary>
+        public static string NAME_REQUIRED {
+            get {
+                return ResourceManager.GetString("NAME_REQUIRED", resourceCulture);
             }
         }
         

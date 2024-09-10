@@ -2,8 +2,8 @@ using AutoMapper;
 using FinanceFlow.Application.UseCases.Expenses.Get;
 using FinanceFlow.Communication.Requests;
 using FinanceFlow.Domain.Repositories.Expenses;
-using FinanceFlow.Exception;
 using FinanceFlow.Exception.ExceptionBase;
+using FinanceFlow.Exception.Resource;
 
 namespace FinanceFlow.Application.UseCases.Expenses.GetAll;
 

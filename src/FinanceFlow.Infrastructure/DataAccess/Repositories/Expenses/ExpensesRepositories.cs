@@ -1,16 +1,15 @@
 ﻿using System.Net.Http.Headers;
 using FinanceFlow.Domain.Entities;
 using FinanceFlow.Domain.Repositories.Expenses;
-using FinanceFlow.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinanceFlow.Infrastructure.DataAccess.Repositories;
+namespace FinanceFlow.Infrastructure.DataAccess.Repositories.Expenses;
 
-internal class ExpensesRepositorioes : IExpensesReadOnlyRepository, IExpensesWhiteOnlyRepository, IExpensesUpdateOnlyRepository
+internal class ExpensesRepositories : IExpensesReadOnlyRepository, IExpensesWhiteOnlyRepository, IExpensesUpdateOnlyRepository
 {
-    public FinanceFlowDbContext _dbContext;
+    private readonly FinanceFlowDbContext _dbContext;
 
-    public ExpensesRepositorioes(FinanceFlowDbContext dbContext)
+    public ExpensesRepositories(FinanceFlowDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -51,7 +50,7 @@ internal class ExpensesRepositorioes : IExpensesReadOnlyRepository, IExpensesWhi
 
     public void Update(Expense expense)
     {
-        _dbContext.Expenses.Update(expense);        
+        _dbContext.Expenses.Update(expense);
     }
 
     public async Task<List<Expense>> FilterByMonth(DateOnly date)

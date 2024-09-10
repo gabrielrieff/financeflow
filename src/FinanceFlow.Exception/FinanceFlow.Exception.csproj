@@ -5,14 +5,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="ResourceErrorsMessage.Designer.cs">
+    <Compile Update="Resource\ResourceErrorsMessage.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResourceErrorsMessage.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="ResourceErrorsMessage.resx">
+    <EmbeddedResource Update="Resource\ResourceErrorsMessage.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceErrorsMessage.Designer.cs</LastGenOutput>
     </EmbeddedResource>

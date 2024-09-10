@@ -1,5 +1,5 @@
 using FinanceFlow.Communication.Requests;
-using FinanceFlow.Exception;
+using FinanceFlow.Exception.Resource;
 using FluentValidation;
 
 namespace FinanceFlow.Application.UseCases.Expenses;

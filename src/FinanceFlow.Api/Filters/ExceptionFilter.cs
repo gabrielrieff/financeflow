@@ -1,6 +1,6 @@
 ﻿using FinanceFlow.Communication.Responses;
-using FinanceFlow.Exception;
 using FinanceFlow.Exception.ExceptionBase;
+using FinanceFlow.Exception.Resource;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
