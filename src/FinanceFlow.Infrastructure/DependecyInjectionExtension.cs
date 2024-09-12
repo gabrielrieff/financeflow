@@ -1,9 +1,11 @@
 ﻿using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Domain.Repositories.Users;
 using FinanceFlow.Domain.Security.Cryptography;
+using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Infrastructure.DataAccess;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Expenses;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Users;
+using FinanceFlow.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +19,17 @@ public static class DependecyInjectionExtension
     {
         AddDbContext(services, configuration);
         AddRepositories(services);
+        AddToken(services, configuration);
 
-        services.AddScoped<IPassawordEncripter, Security.BCrypt>();
+        services.AddScoped<IPassawordEncripter, Security.Cryptography.BCrypt>();
+    }
+
+    private static void AddToken(IServiceCollection services, IConfiguration configuration)
+    {
+        var expirationTimeMinutor = configuration.GetValue<uint>("Settings:Jwt:ExpirationMinutes");
+        var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+
+        services.AddScoped<IAccessTokenGenerator>(config => new JwtTokenGenerator(expirationTimeMinutor, signingKey!));
     }
 
     private static void AddRepositories(IServiceCollection services)

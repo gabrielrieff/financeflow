@@ -1,7 +1,7 @@
 ﻿using BC = BCrypt.Net.BCrypt;
 using FinanceFlow.Domain.Security.Cryptography;
 
-namespace FinanceFlow.Infrastructure.Security;
+namespace FinanceFlow.Infrastructure.Security.Cryptography;
 
 public class BCrypt : IPassawordEncripter
 {

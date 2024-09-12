@@ -4,6 +4,7 @@ using FinanceFlow.Communication.Responses.Users;
 using FinanceFlow.Domain.Entities;
 using FinanceFlow.Domain.Repositories.Users;
 using FinanceFlow.Domain.Security.Cryptography;
+using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Exception.ExceptionBase;
 using FinanceFlow.Exception.Resource;
 using FinanceFlow.Infrastructure.DataAccess;
@@ -19,6 +20,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IUserWhiteOnlyRepository _userWhiteOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IAccessTokenGenerator _accessTokenGenerator;
 
 
     public RegisterUserUseCase(
@@ -26,13 +28,15 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         IPassawordEncripter passwordEncriter,
         IUserReadOnlyRepository userReadOnlyRepository,
         IUserWhiteOnlyRepository userWhiteOnlyRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IAccessTokenGenerator accessTokenGenerator)
     {
         _mapper = mapper;
         _passwordEncriter = passwordEncriter;
         _userReadOnlyRepository = userReadOnlyRepository;
         _userWhiteOnlyRepository = userWhiteOnlyRepository;
         _unitOfWork = unitOfWork;
+        _accessTokenGenerator = accessTokenGenerator;
     }
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestUserJson request)
@@ -50,6 +54,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,
+            Token = _accessTokenGenerator.Generate(user)
         };
     }
 
