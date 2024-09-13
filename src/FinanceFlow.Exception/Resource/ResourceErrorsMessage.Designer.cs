@@ -88,6 +88,15 @@ namespace FinanceFlow.Exception.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email and/or password.
+        /// </summary>
+        public static string EMAIL_OR_PASSWORD_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The email is required..
         /// </summary>
         public static string EMAIL_REQUIRED {
