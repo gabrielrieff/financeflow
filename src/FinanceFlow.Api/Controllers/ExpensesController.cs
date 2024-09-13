@@ -5,12 +5,14 @@ using FinanceFlow.Application.UseCases.Expenses.Register;
 using FinanceFlow.Application.UseCases.Expenses.Update;
 using FinanceFlow.Communication.Requests;
 using FinanceFlow.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceFlow.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ExpensesController : ControllerBase
 {
 
