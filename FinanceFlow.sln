@@ -15,6 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceFlow.Exception", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceFlow.Infrastructure", "src\FinanceFlow.Infrastructure\FinanceFlow.Infrastructure.csproj", "{3D3F26F1-266F-41D7-82C0-F25F4FC26A9E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators.Tests", "tests\Validators.Tests\Validators.Tests.csproj", "{B3368A6B-08CB-4803-810E-29308D64719F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "commonTestUtilities", "tests\commonTestUtilities\commonTestUtilities.csproj", "{CC0AB8DE-279B-4C9C-85CC-12254F9E852C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D3D1E72E-59AE-4534-9DF0-FAAD254FAEDC} = {D3D1E72E-59AE-4534-9DF0-FAAD254FAEDC}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCase.Test", "tests\UseCase.Test\UseCase.Test.csproj", "{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +54,18 @@ Global
 		{3D3F26F1-266F-41D7-82C0-F25F4FC26A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D3F26F1-266F-41D7-82C0-F25F4FC26A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D3F26F1-266F-41D7-82C0-F25F4FC26A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3368A6B-08CB-4803-810E-29308D64719F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3368A6B-08CB-4803-810E-29308D64719F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3368A6B-08CB-4803-810E-29308D64719F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3368A6B-08CB-4803-810E-29308D64719F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC0AB8DE-279B-4C9C-85CC-12254F9E852C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC0AB8DE-279B-4C9C-85CC-12254F9E852C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC0AB8DE-279B-4C9C-85CC-12254F9E852C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC0AB8DE-279B-4C9C-85CC-12254F9E852C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

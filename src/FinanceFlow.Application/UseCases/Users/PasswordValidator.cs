@@ -24,13 +24,31 @@ public partial class PasswordValidator<T> : PropertyValidator<T, string>
             return false;
         }
 
-        if(password.Length < 8)
+        if (password.Length < 8)
         {
             context.MessageFormatter.AppendArgument(Error_message_key, ResourceErrorsMessage.INVALID_PASSWORD);
             return false;
         }
-        
-        if(RegexPassword().IsMatch(password) == false)
+
+        if (UpperCaseLetter().IsMatch(password) == false)
+        {
+            context.MessageFormatter.AppendArgument(Error_message_key, ResourceErrorsMessage.INVALID_PASSWORD);
+            return false;
+        }
+
+        if (LowerCaseLetter().IsMatch(password) == false)
+        {
+            context.MessageFormatter.AppendArgument(Error_message_key, ResourceErrorsMessage.INVALID_PASSWORD);
+            return false;
+        }
+
+        if (Numbers().IsMatch(password) == false)
+        {
+            context.MessageFormatter.AppendArgument(Error_message_key, ResourceErrorsMessage.INVALID_PASSWORD);
+            return false;
+        }
+
+        if (SpecialSymbols().IsMatch(password) == false)
         {
             context.MessageFormatter.AppendArgument(Error_message_key, ResourceErrorsMessage.INVALID_PASSWORD);
             return false;
@@ -39,6 +57,12 @@ public partial class PasswordValidator<T> : PropertyValidator<T, string>
         return true;
     }
 
-    [GeneratedRegex(@"[A-Za-z0-9\\!\\?\\*\\.]")]
-    private static partial Regex RegexPassword();
+    [GeneratedRegex(@"[A-Z]+")]
+    private static partial Regex UpperCaseLetter();
+    [GeneratedRegex(@"[a-z]+")]
+    private static partial Regex LowerCaseLetter();
+    [GeneratedRegex(@"[0-9]+")]
+    private static partial Regex Numbers();
+    [GeneratedRegex(@"[\!\?\*\.]+")]
+    private static partial Regex SpecialSymbols();
 }

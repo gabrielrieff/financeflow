@@ -1,4 +1,4 @@
-﻿namespace FinanceFlow.Infrastructure.DataAccess;
+﻿namespace FinanceFlow.Domain.Repositories;
 
 public interface IUnitOfWork
 {

@@ -7,7 +7,7 @@ using FinanceFlow.Domain.Security.Cryptography;
 using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Exception.ExceptionBase;
 using FinanceFlow.Exception.Resource;
-using FinanceFlow.Infrastructure.DataAccess;
+using FinanceFlow.Domain.Repositories;
 using FluentValidation.Results;
 
 namespace FinanceFlow.Application.UseCases.Users.Register;

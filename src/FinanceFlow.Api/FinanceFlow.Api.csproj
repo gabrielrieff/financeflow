@@ -17,5 +17,6 @@
     <ProjectReference Include="..\FinanceFlow.Application\FinanceFlow.Application.csproj" />
     <ProjectReference Include="..\FinanceFlow.Communication\FinanceFlow.Communication.csproj" />
     <ProjectReference Include="..\FinanceFlow.Exception\FinanceFlow.Exception.csproj" />
+    <ProjectReference Include="..\FinanceFlow.Infrastructure\FinanceFlow.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

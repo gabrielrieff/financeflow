@@ -1,14 +1,10 @@
 using FinanceFlow.Api;
 using FinanceFlow.Api.Filters;
-using FinanceFlow.Application;
 using FinanceFlow.Api.middleware;
-using FinanceFlow.Infrastructure;
-using FinanceFlow.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +48,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
 var signingKey = builder.Configuration.GetValue<string>("Settings:Jwt:SigningKey");
-
 
 builder.Services.AddAuthentication(config =>
 {

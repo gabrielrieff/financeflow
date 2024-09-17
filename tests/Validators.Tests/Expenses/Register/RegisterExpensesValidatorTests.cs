@@ -1,8 +1,7 @@
 ﻿using commonTestUtilities.Requests;
 using FinanceFlow.Application.UseCases.Expenses;
-using FinanceFlow.Application.UseCases.Expenses.Register;
 using FinanceFlow.Communication.Enums;
-using FinanceFlow.Exception;
+using FinanceFlow.Exception.Resource;
 using FluentAssertions;
 
 namespace Validators.Tests.Expenses.Register;
