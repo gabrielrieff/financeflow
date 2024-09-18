@@ -1,6 +1,8 @@
-﻿using commonTestUtilities.Mapper;
+﻿using commonTestUtilities.Cryptography;
+using commonTestUtilities.Mapper;
 using commonTestUtilities.Repositories;
 using commonTestUtilities.Requests;
+using commonTestUtilities.Token;
 using FinanceFlow.Application.UseCases.Users.Register;
 using FluentAssertions;
 
@@ -23,9 +25,12 @@ public class RegisterUserUseCaseTest
     private RegisterUserUseCase CreateUseCase()
     {
         var mapper = MapperBuilder.Build();
-        var initOfWork = IUnitOfWorkBuilder.Build();
-        var userWhiteOnly = IUserWhiteOnlyRepositoryBuilder.Build();
+        var userWhiteOnly = UserWhiteOnlyRepositoryBuilder.Build();
+        var userReadOnlyRepository = new UserReadOnlyRepositoryBuilder().Build();
+        var passwordEncripter = PasswordEncripterBuilder.Build();
+        var initOfWork = UnitOfWorkBuilder.Build();
+        var jwtTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
-        return new RegisterUserUseCase(mapper, null, null, userWhiteOnly, initOfWork, null);
+        return new RegisterUserUseCase(mapper, passwordEncripter, userReadOnlyRepository, userWhiteOnly, initOfWork, jwtTokenGenerator);
     }
 }

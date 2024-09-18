@@ -4,7 +4,7 @@ using Moq;
 
 namespace commonTestUtilities.Repositories;
 
-public class IUserWhiteOnlyRepositoryBuilder
+public class UserWhiteOnlyRepositoryBuilder
 {
     public static IUserWhiteOnlyRepository Build()
     {

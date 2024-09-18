@@ -3,7 +3,7 @@ using Moq;
 
 namespace commonTestUtilities.Repositories;
 
-public static class IUnitOfWorkBuilder
+public static class UnitOfWorkBuilder
 {
     public static IUnitOfWork Build()
     {
