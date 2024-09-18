@@ -1,4 +1,6 @@
 ﻿
+using FinanceFlow.Domain.Repositories;
+
 namespace FinanceFlow.Infrastructure.DataAccess;
 
 internal class UnitOfWork : IUnitOfWork

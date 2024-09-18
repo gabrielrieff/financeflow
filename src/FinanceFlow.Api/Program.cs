@@ -1,6 +1,8 @@
 using FinanceFlow.Api;
 using FinanceFlow.Api.Filters;
 using FinanceFlow.Api.middleware;
+using FinanceFlow.Infrastructure;
+using FinanceFlow.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;

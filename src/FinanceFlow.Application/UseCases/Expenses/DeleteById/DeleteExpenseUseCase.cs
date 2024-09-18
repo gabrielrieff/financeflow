@@ -1,7 +1,7 @@
+using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Exception.ExceptionBase;
 using FinanceFlow.Exception.Resource;
-using FinanceFlow.Infrastructure.DataAccess;
 
 namespace FinanceFlow.Application.UseCases.Expenses.DeleteById;
 

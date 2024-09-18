@@ -2,9 +2,9 @@
 using FinanceFlow.Communication.Requests;
 using FinanceFlow.Communication.Responses;
 using FinanceFlow.Domain.Entities;
+using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Exception.ExceptionBase;
-using FinanceFlow.Infrastructure.DataAccess;
 
 namespace FinanceFlow.Application.UseCases.Expenses.Register;
 
