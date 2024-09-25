@@ -1,7 +1,7 @@
 ﻿using commonTestUtilities.Cryptography;
 using commonTestUtilities.Mapper;
 using commonTestUtilities.Repositories;
-using commonTestUtilities.Requests;
+using commonTestUtilities.Requests.User;
 using commonTestUtilities.Token;
 using FinanceFlow.Application.UseCases.Users.Register;
 using FinanceFlow.Exception.ExceptionBase;
@@ -40,15 +40,35 @@ public class RegisterUserUseCaseTest
                      ex.GetErrors().Contains(ResourceErrorsMessage.NAME_REQUIRED));
     }
 
-    private RegisterUserUseCase CreateUseCase()
+    [Fact]
+    public async Task Error_Email_Already_Exist()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+        var useCase = CreateUseCase(request.Email);
+        var act = async () => await useCase.Execute(request);
+        var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
+
+        result.Where(ex => ex.GetErrors().Count == 1 &&
+                     ex.GetErrors().Contains(ResourceErrorsMessage.EMAIL_EXIST));
+
+
+
+    }
+
+    private RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var mapper = MapperBuilder.Build();
         var userWhiteOnly = UserWhiteOnlyRepositoryBuilder.Build();
-        var userReadOnlyRepository = new UserReadOnlyRepositoryBuilder().Build();
-        var passwordEncripter = PasswordEncripterBuilder.Build();
+        var userReadOnlyRepository = new UserReadOnlyRepositoryBuilder();
+        var passwordEncripter = new PasswordEncripterBuilder().Build();
         var initOfWork = UnitOfWorkBuilder.Build();
         var jwtTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
-        return new RegisterUserUseCase(mapper, passwordEncripter, userReadOnlyRepository, userWhiteOnly, initOfWork, jwtTokenGenerator);
+        if (string.IsNullOrWhiteSpace(email) == false)
+        {
+            userReadOnlyRepository.ExistActiveUserWithEmail(email);
+        }
+
+        return new RegisterUserUseCase(mapper, passwordEncripter, userReadOnlyRepository.Build(), userWhiteOnly, initOfWork, jwtTokenGenerator);
     }
 }
