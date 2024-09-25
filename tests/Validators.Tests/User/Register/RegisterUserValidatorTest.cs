@@ -1,4 +1,4 @@
-﻿using commonTestUtilities.Requests;
+﻿using commonTestUtilities.Requests.User;
 using FinanceFlow.Application.UseCases.Users;
 using FinanceFlow.Exception.Resource;
 using FluentAssertions;
