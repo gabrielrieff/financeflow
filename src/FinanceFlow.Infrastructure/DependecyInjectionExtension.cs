@@ -3,10 +3,12 @@ using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Domain.Repositories.Users;
 using FinanceFlow.Domain.Security.Cryptography;
 using FinanceFlow.Domain.Security.Tokens;
+using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Infrastructure.DataAccess;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Expenses;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Users;
 using FinanceFlow.Infrastructure.Security.Tokens;
+using FinanceFlow.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,11 +20,12 @@ public static class DependecyInjectionExtension
 
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration) 
     {
+        services.AddScoped<IPassawordEncripter, Security.Cryptography.BCrypt>();
+        services.AddScoped<ILoggedUser, LoggedUser>();
+
         AddDbContext(services, configuration);
         AddRepositories(services);
         AddToken(services, configuration);
-
-        services.AddScoped<IPassawordEncripter, Security.Cryptography.BCrypt>();
     }
 
     private static void AddToken(IServiceCollection services, IConfiguration configuration)

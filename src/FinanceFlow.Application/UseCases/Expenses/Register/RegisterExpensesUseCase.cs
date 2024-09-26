@@ -4,6 +4,7 @@ using FinanceFlow.Communication.Responses;
 using FinanceFlow.Domain.Entities;
 using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Expenses;
+using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Exception.ExceptionBase;
 
 namespace FinanceFlow.Application.UseCases.Expenses.Register;
@@ -13,36 +14,38 @@ public class RegisterExpensesUseCase : IRegisterExpensesUseCase
     private readonly IExpensesWhiteOnlyRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly ILoggedUser _loggedUser;
 
     public RegisterExpensesUseCase(
         IExpensesWhiteOnlyRepository repository,
         IUnitOfWork unitOfWork,
-        IMapper mapper
+        IMapper mapper,
+        ILoggedUser loggedUser
         )
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _loggedUser = loggedUser;
     }
 
     public async Task<ResponseRegisteredExpensesJson> Execute(RequestExpenseJson request)
     {
         Validate(request);
+        var loggedUser = await _loggedUser.Get();
 
-        var entity = _mapper.Map<Expense>(request);
+        var expense = _mapper.Map<Expense>(request);
+        expense.UserId = loggedUser.Id;
 
-        await _repository.Add(entity);
+        await _repository.Add(expense);
 
         await _unitOfWork.Commit();
 
-        var t = _mapper.Map<ResponseRegisteredExpensesJson>(entity);
-
-        return t;
+        return _mapper.Map<ResponseRegisteredExpensesJson>(expense);
     }
 
     private void Validate(RequestExpenseJson entidade)
     {
-
         var validator = new ExpenseValidator();
 
         var result = validator.Validate(entidade);

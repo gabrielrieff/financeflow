@@ -1,8 +1,10 @@
 using FinanceFlow.Api;
 using FinanceFlow.Api.Filters;
 using FinanceFlow.Api.middleware;
+using FinanceFlow.Api.Token;
 using FinanceFlow.Infrastructure;
 using FinanceFlow.Infrastructure.Migrations;
+using FinanceFlow.Infrastructure.Security.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -16,7 +18,7 @@ builder.Services.AddSwaggerGen(config =>
 {
     config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "Autorazation",
+        Name = "Authorization",
         Description = @"JWT Authorization header using the Bearer scheme.
                       Enter 'Bearer' [space] and then your token in the text input below.
                       Example: 'Bearer 12345abcdef'",
@@ -48,6 +50,10 @@ builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)))
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+
+builder.Services.AddHttpContextAccessor();
 
 var signingKey = builder.Configuration.GetValue<string>("Settings:Jwt:SigningKey");
 
