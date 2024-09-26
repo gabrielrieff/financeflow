@@ -2,6 +2,7 @@ using AutoMapper;
 using FinanceFlow.Communication.Requests;
 using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Expenses;
+using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Exception.ExceptionBase;
 using FinanceFlow.Exception.Resource;
 
@@ -12,19 +13,28 @@ public class UpdateExpenseUseCase : IUpdateExpenseUseCase
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IExpensesUpdateOnlyRepository _repository;
-    
-    public UpdateExpenseUseCase(IUnitOfWork unitOfWork, IMapper mapper, IExpensesUpdateOnlyRepository repository)
+    private readonly ILoggedUser _loggedUser;
+
+
+    public UpdateExpenseUseCase(
+        IUnitOfWork unitOfWork, 
+        IMapper mapper, 
+        IExpensesUpdateOnlyRepository repository,
+        ILoggedUser loggedUser)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _repository = repository;
+        _loggedUser = loggedUser;
     }
 
     public async Task Execute(long id, RequestExpenseJson request)
     {
-        Validate(request);
 
-        var expense = await _repository.GetById(id);
+        Validate(request);
+        var loggedUser = await _loggedUser.Get();
+
+        var expense = await _repository.GetById(loggedUser, id);
 
         if(expense is null)
         {

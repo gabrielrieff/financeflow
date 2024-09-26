@@ -10,5 +10,5 @@ public interface IExpensesWhiteOnlyRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<bool> DeleteById(long id);
+    Task DeleteById(long id);
 }
