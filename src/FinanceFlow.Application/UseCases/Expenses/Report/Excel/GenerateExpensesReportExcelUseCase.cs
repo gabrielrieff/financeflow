@@ -4,6 +4,7 @@ using FinanceFlow.Communication.Enums;
 using FinanceFlow.Domain.Extensions;
 using FinanceFlow.Domain.Reports;
 using FinanceFlow.Domain.Repositories.Expenses;
+using FinanceFlow.Domain.Services.LoggedUser;
 
 namespace FinanceFlow.Application.UseCases.Expenses.Report;
 
@@ -11,14 +12,21 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
 {
     private const string CURRENCY_SYMBOL = "R$";
     private readonly IExpensesReadOnlyRepository _repository;
-    public GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository repository)
+    private readonly ILoggedUser _loggedUser;
+
+    public GenerateExpensesReportExcelUseCase(
+        IExpensesReadOnlyRepository repository,
+        ILoggedUser loggedUser)
     {
         _repository = repository;
+        _loggedUser = loggedUser;
     }
 
     public async Task<byte[]> Excute(DateOnly month)
     {
-        var expenses = await _repository.FilterByMonth(month);
+        var loggedUser = await _loggedUser.Get();
+
+        var expenses = await _repository.FilterByMonth(loggedUser, month);
 
         if(expenses.Count == 0)
         {

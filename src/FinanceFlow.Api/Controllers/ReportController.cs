@@ -1,11 +1,13 @@
 using System.Net.Mime;
 using FinanceFlow.Application.UseCases.Expenses.Report;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceFlow.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ReportController : ControllerBase
 {
     [HttpGet("Excel")]
