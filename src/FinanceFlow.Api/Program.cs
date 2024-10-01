@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using FinanceFlow.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,7 +91,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await MigrateDataBase();
+if(builder.Configuration.IsTestEnvoriment() == false)
+{
+    await MigrateDataBase();
+
+}
+
 
 app.Run();
 
@@ -100,3 +106,5 @@ async Task MigrateDataBase()
 
     await DataBaseMigration.MigrateDataBase(scope.ServiceProvider);
 }
+
+public partial class Program{};

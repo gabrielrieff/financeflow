@@ -7,6 +7,7 @@ using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Infrastructure.DataAccess;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Expenses;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Users;
+using FinanceFlow.Infrastructure.Extensions;
 using FinanceFlow.Infrastructure.Security.Tokens;
 using FinanceFlow.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
@@ -23,9 +24,13 @@ public static class DependecyInjectionExtension
         services.AddScoped<IPassawordEncripter, Security.Cryptography.BCrypt>();
         services.AddScoped<ILoggedUser, LoggedUser>();
 
-        AddDbContext(services, configuration);
         AddRepositories(services);
         AddToken(services, configuration);
+
+        if (configuration.IsTestEnvoriment() == false)
+        {
+            AddDbContext(services, configuration);
+        }
     }
 
     private static void AddToken(IServiceCollection services, IConfiguration configuration)
@@ -55,7 +60,7 @@ public static class DependecyInjectionExtension
     {
 
         var connectionString = configuration.GetConnectionString("connection");
-        var serverVersion = new MySqlServerVersion(new Version(8, 0, 39));
+        var serverVersion = ServerVersion.AutoDetect(connectionString);
 
 
         services.AddDbContext<FinanceFlowDbContext>(config => config.UseMySql(connectionString, serverVersion));

@@ -1,6 +1,5 @@
 using FinanceFlow.Application.UseCases.Expenses.Report.PDF.Colors;
 using FinanceFlow.Application.UseCases.Expenses.Report.PDF.Fonts;
-using FinanceFlow.Domain.Entities;
 using FinanceFlow.Domain.Extensions;
 using FinanceFlow.Domain.Reports;
 using FinanceFlow.Domain.Repositories.Expenses;

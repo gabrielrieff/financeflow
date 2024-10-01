@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceFlow.Infrastructure.DataAccess;
 
-internal class FinanceFlowDbContext : DbContext
+public class FinanceFlowDbContext : DbContext
 {
 
     public FinanceFlowDbContext(DbContextOptions options) : base(options){}

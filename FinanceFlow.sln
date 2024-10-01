@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "commonTestUtilities", "test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCase.Test", "tests\UseCase.Test\UseCase.Test.csproj", "{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Test", "tests\WebApi.Test\WebApi.Test.csproj", "{E21C9F08-FC05-493B-AD27-ADBBF108C564}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B86C3D46-1DCC-484A-AD68-52B60BCFE85A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E21C9F08-FC05-493B-AD27-ADBBF108C564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E21C9F08-FC05-493B-AD27-ADBBF108C564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E21C9F08-FC05-493B-AD27-ADBBF108C564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E21C9F08-FC05-493B-AD27-ADBBF108C564}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
