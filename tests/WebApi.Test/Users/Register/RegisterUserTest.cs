@@ -1,4 +1,5 @@
 ﻿using commonTestUtilities.Requests.User;
+using FinanceFlow.Exception.Resource;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
@@ -31,6 +32,23 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
 
         response.RootElement.GetProperty("name").GetString().Should().Be(request.Name);
         response.RootElement.GetProperty("token").GetString().Should().NotBeNullOrEmpty();
+    }
+
+    public async Task Error_Empty_Name()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Name = string.Empty;
+
+        var result = await _httpClient.PostAsJsonAsync(Method, request);
+
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        var body = await result.Content.ReadAsStreamAsync();
+
+        var response = await JsonDocument.ParseAsync(body);
+
+        var errors = response.RootElement.GetProperty("errorMessage").EnumerateArray();
+
+        errors.Should().HaveCount(1).And.Contain(error => error.GetString()!.Equals(ResourceErrorsMessage.NAME_REQUIRED));
     }
 
 }
