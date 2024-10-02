@@ -6,16 +6,17 @@ namespace commonTestUtilities.Entities;
 
 public class ExpenseBuilder
 {
-    public static List<Expense> Collection(User user, uint count = 2) 
-    { 
+    public static List<Expense> Collection(User user, uint count = 2)
+    {
         var list = new List<Expense>();
 
-        if(count == 0)
+        if (count == 0)
             count = 1;
 
         var expenseId = 1;
 
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++)
+        {
             var expense = Build(user);
             expense.Id = expenseId++;
 
@@ -23,7 +24,7 @@ public class ExpenseBuilder
         }
 
         return list;
-        
+
     }
 
     public static Expense Build(User user)
@@ -31,11 +32,11 @@ public class ExpenseBuilder
         return new Faker<Expense>()
             .RuleFor(u => u.Id, _ => 1)
             .RuleFor(u => u.Title, faker => faker.Commerce.ProductName())
-            .RuleFor(u => u.Description, faker => faker.Commerce.ProductDescription())
-            .RuleFor(u => u.Create_at, faker => faker.Date.Past())
-            .RuleFor(u => u.Amount, faker => faker.Random.Decimal(min: 1, max: 1000))
-            .RuleFor(u => u.PaymentType, faker => faker.PickRandom<PaymentsType>())
-            .RuleFor(u => u.UserId, faker => user.Id);
-    }
+            .RuleFor(r => r.Description, faker => faker.Commerce.ProductDescription())
+            .RuleFor(r => r.Create_at, faker => faker.Date.Past())
+            .RuleFor(r => r.Amount, faker => faker.Random.Decimal(min: 1, max: 1000))
+            .RuleFor(r => r.PaymentType, faker => faker.PickRandom<PaymentType>())
+            .RuleFor(r => r.UserId, _ => user.Id);
 
+    }
 }

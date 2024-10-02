@@ -11,7 +11,10 @@ public class FinanceFlowClassFixture : IClassFixture<CustomWebApplicationFactory
         _httpClient = webApplicationFactory.CreateClient();
     }
 
-    protected async Task<HttpResponseMessage> DoPost(string requestUri, object request, string token = "")
+    protected async Task<HttpResponseMessage> DoPost(
+        string requestUri,
+        object request,
+        string token = "")
     {
         AuthorizeRequest(token);
 
@@ -19,9 +22,8 @@ public class FinanceFlowClassFixture : IClassFixture<CustomWebApplicationFactory
     }
 
     protected async Task<HttpResponseMessage> DoGet(
-    string requestUri,
-    string token,
-    string culture = "en")
+        string requestUri,
+        string token)
     {
         AuthorizeRequest(token);
 

@@ -3,7 +3,6 @@ using FinanceFlow.Communication.Requests.Login;
 using FinanceFlow.Exception.Resource;
 using FluentAssertions;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace WebApi.Test.Login.DoLogin;
@@ -18,9 +17,9 @@ public class DoLoginTest : FinanceFlowClassFixture
 
     public DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _email = webApplicationFactory.GetEmail();
-        _name = webApplicationFactory.GetName();
-        _password = webApplicationFactory.GetPassword();
+        _email = webApplicationFactory._userIdentity.GetEmail();
+        _name = webApplicationFactory._userIdentity.GetName();
+        _password = webApplicationFactory._userIdentity.GetPassword();
     }
 
     [Fact]

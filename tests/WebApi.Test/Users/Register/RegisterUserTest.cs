@@ -1,9 +1,7 @@
 ﻿using commonTestUtilities.Requests.User;
 using FinanceFlow.Exception.Resource;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace WebApi.Test.Users.Register;
@@ -32,6 +30,7 @@ public class RegisterUserTest : FinanceFlowClassFixture
         response.RootElement.GetProperty("token").GetString().Should().NotBeNullOrEmpty();
     }
 
+    [Fact]
     public async Task Error_Empty_Name()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
