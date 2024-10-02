@@ -1,6 +1,10 @@
-﻿using FinanceFlow.Communication.Requests.Login;
+﻿using commonTestUtilities.Requests.Expense;
+using commonTestUtilities.Requests.User;
+using FinanceFlow.Communication.Requests.Login;
+using FinanceFlow.Exception.Resource;
 using FluentAssertions;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -21,7 +25,6 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
         _email = webApplicationFactory.GetEmail();
         _name = webApplicationFactory.GetName();
         _password = webApplicationFactory.GetPassword();
-
     }
 
     [Fact]
@@ -42,10 +45,23 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
 
         response.RootElement.GetProperty("name").GetString().Should().Be(_name);
         response.RootElement.GetProperty("token").GetString().Should().NotBeNullOrEmpty();
-
     }
 
-    public async Task Error_Empty_Name()
+    [Fact]
+    public async Task Error_Validate_Login()
     {
+        var request = RequestLoginJsonBuilder.Build();
+
+        var result = await _httpClient.PostAsJsonAsync(Method, request);
+
+        result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        var body = await result.Content.ReadAsStreamAsync();
+
+        var response = await JsonDocument.ParseAsync(body);
+
+        var errors = response.RootElement.GetProperty("errorMessage").EnumerateArray();
+
+        errors.Should().HaveCount(1).And.Contain(error => error.GetString()!.Equals(ResourceErrorsMessage.EMAIL_OR_PASSWORD_INVALID));
+
     }
 }

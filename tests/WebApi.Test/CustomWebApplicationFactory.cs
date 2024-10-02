@@ -1,6 +1,7 @@
 ﻿using commonTestUtilities.Entities;
 using FinanceFlow.Domain.Entities;
 using FinanceFlow.Domain.Security.Cryptography;
+using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Infrastructure.DataAccess;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -13,6 +14,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private User _user;
     private string _password;
+    private string _token;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -30,15 +32,18 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 var scoped = services.BuildServiceProvider().CreateScope();
                 var dbContext = scoped.ServiceProvider.GetRequiredService<FinanceFlowDbContext>();
                 var passawordEncripter = scoped.ServiceProvider.GetRequiredService<IPassawordEncripter>();
+                var tokenGenerator = scoped.ServiceProvider.GetService<IAccessTokenGenerator>();
 
                 StartDatabase(dbContext, passawordEncripter);
 
+                _token = tokenGenerator.Generate(_user);
             });
     }
 
     public string GetEmail() => _user.Email;
     public string GetName() => _user.Name;
     public string GetPassword() => _password;
+    public string GetToken() => _token;
 
     private void StartDatabase(FinanceFlowDbContext dbContext, IPassawordEncripter passawordEncripter)
     {
