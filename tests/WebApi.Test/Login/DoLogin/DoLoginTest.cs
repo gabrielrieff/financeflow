@@ -8,18 +8,16 @@ using System.Text.Json;
 
 namespace WebApi.Test.Login.DoLogin;
 
-public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
+public class DoLoginTest : FinanceFlowClassFixture
 {
     private const string Method = "api/Login";
 
-    private readonly HttpClient _httpClient;
     private string _email;
     private string _name;
     private string _password;
 
-    public DoLoginTest(CustomWebApplicationFactory webApplicationFactory)
+    public DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _httpClient = webApplicationFactory.CreateClient();
         _email = webApplicationFactory.GetEmail();
         _name = webApplicationFactory.GetName();
         _password = webApplicationFactory.GetPassword();
@@ -34,7 +32,7 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
             Password = _password
         };
 
-        var result = await _httpClient.PostAsJsonAsync(Method, request);
+        var result = await DoPost(requestUri: Method, request: request);
 
         result.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await result.Content.ReadAsStreamAsync();
@@ -50,7 +48,7 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
     {
         var request = RequestLoginJsonBuilder.Build();
 
-        var result = await _httpClient.PostAsJsonAsync(Method, request);
+        var result = await DoPost(requestUri: Method, request: request);
 
         result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         var body = await result.Content.ReadAsStreamAsync();

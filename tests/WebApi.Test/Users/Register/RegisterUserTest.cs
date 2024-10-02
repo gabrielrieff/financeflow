@@ -8,14 +8,12 @@ using System.Text.Json;
 
 namespace WebApi.Test.Users.Register;
 
-public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest : FinanceFlowClassFixture
 {
     private const string Method = "api/User";
-    private readonly HttpClient _httpClient;
 
-    public RegisterUserTest(CustomWebApplicationFactory webApplicationFactory)
+    public RegisterUserTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _httpClient = webApplicationFactory.CreateClient();
     }
 
     [Fact]
@@ -23,7 +21,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var result = await _httpClient.PostAsJsonAsync(Method, request);
+        var result = await DoPost(requestUri: Method, request: request);
 
         result.StatusCode.Should().Be(HttpStatusCode.Created);
         var body = await result.Content.ReadAsStreamAsync();
@@ -39,7 +37,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
 
-        var result = await _httpClient.PostAsJsonAsync(Method, request);
+        var result = await DoPost(requestUri: Method, request: request);
 
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var body = await result.Content.ReadAsStreamAsync();

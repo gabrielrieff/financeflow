@@ -8,16 +8,14 @@ using System.Text.Json;
 
 namespace WebApi.Test.Expenses.Register;
 
-public class RegisterExpenseTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterExpenseTest : FinanceFlowClassFixture
 {
     private const string Method = "api/Expenses";
 
-    private readonly HttpClient _httpClient;
     private readonly string _token;
 
-    public RegisterExpenseTest(CustomWebApplicationFactory webApplicationFactory)
+    public RegisterExpenseTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _httpClient = webApplicationFactory.CreateClient();
         _token = webApplicationFactory.GetToken();
     }
 
@@ -26,9 +24,7 @@ public class RegisterExpenseTest : IClassFixture<CustomWebApplicationFactory>
     {
         var request = RequestExpensesJsonBuilder.Build();
 
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-        var result = await _httpClient.PostAsJsonAsync(Method, request);
+        var result = await DoPost(requestUri: Method, request: request, token: _token);
 
         result.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -45,9 +41,7 @@ public class RegisterExpenseTest : IClassFixture<CustomWebApplicationFactory>
         var request = RequestExpensesJsonBuilder.Build();
         request.Title = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-        var result = await _httpClient.PostAsJsonAsync(Method, request);
+        var result = await DoPost(requestUri: Method, request: request, token: _token);
 
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var body = await result.Content.ReadAsStreamAsync();
