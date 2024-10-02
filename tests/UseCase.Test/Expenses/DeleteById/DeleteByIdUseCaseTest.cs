@@ -1,14 +1,15 @@
 ﻿using commonTestUtilities.Entities;
 using commonTestUtilities.Mapper;
+using commonTestUtilities.Repositories;
 using commonTestUtilities.Repositories.Expenses;
 using commonTestUtilities.Services.LoggedUser;
-using FinanceFlow.Application.UseCases.Expenses.GetAll;
+using FinanceFlow.Application.UseCases.Expenses.DeleteById;
 using FinanceFlow.Domain.Entities;
 using FinanceFlow.Exception.ExceptionBase;
 using FinanceFlow.Exception.Resource;
 using FluentAssertions;
 
-namespace UseCase.Test.Expenses.GetById;
+namespace UseCase.Test.Expenses.DeleteById;
 
 public class DeleteByIdUseCaseTest
 {
@@ -19,15 +20,9 @@ public class DeleteByIdUseCaseTest
         var expenses = ExpenseBuilder.Build(loggedUser);
 
         var useCase = CreateUseCase(loggedUser, expenses);
-        var result = await useCase.Execute(expenses.Id);
+        var act = async () =>  await useCase.Execute(expenses.Id);
 
-        result.Should().NotBeNull();
-        result.Id.Should().Be(expenses.Id);
-        result.Title.Should().Be(expenses.Title);
-        result.Description.Should().Be(expenses.Description);
-        result.Create_at.Should().Be(expenses.Create_at);
-        result.Amount.Should().Be(expenses.Amount);
-        result.PaymentType.Should().Be((FinanceFlow.Communication.Enums.PaymentsType)expenses.PaymentType);
+        await act.Should().NotThrowAsync();
     }
 
     [Fact]
@@ -45,13 +40,20 @@ public class DeleteByIdUseCaseTest
 
     }
 
-    private GetExpenseUseCase CreateUseCase(User user, Expense? expense = null)
+    private DeleteExpenseUseCase CreateUseCase(User user, Expense? expense = null)
     {
-        var repository = new ExpensesReadOnlyRepositoryBuilder().GetById(user, expense).Build();
+        var repositoryReadOnly = new ExpensesReadOnlyRepositoryBuilder().GetById(user, expense).Build();
+        var repositoryWhiteOnly = ExpensesWhiteOnlyRepositoryBuilder.Build();
+
+        var unitOfWork = UnitOfWorkBuilder.Build();
         var mapper = MapperBuilder.Build();
         var loggedUser = LoggedUserBuilder.Build(user);
 
 
-        return new GetExpenseUseCase(repositories: repository, mapper: mapper, loggedUser: loggedUser);
+        return new DeleteExpenseUseCase(
+            repositoryReadOnly: repositoryReadOnly,
+            repositoryWhiteOnly: repositoryWhiteOnly,
+            unitOfWork: unitOfWork,
+            loggedUser: loggedUser);
     }
 }

@@ -6,7 +6,7 @@ using System.Net;
 using System.Resources;
 using System.Text.Json;
 
-namespace WebApi.Test.Expenses.GetById;
+namespace WebApi.Test.Expenses.DeleteById;
 
 public class DeleteByIdExpenseTest : FinanceFlowClassFixture
 {
@@ -24,27 +24,19 @@ public class DeleteByIdExpenseTest : FinanceFlowClassFixture
     [Fact]
     public async Task Success()
     {
-        var result = await DoGet(requestUri: $"{Method}/{_expenseId}", token: _token);
+        var result = await DoDelete(requestUri: $"{Method}/{_expenseId}", token: _token);
 
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
-        var body = await result.Content.ReadAsStreamAsync();
+        result = await DoGet(requestUri: $"{Method}/{_expenseId}", token: _token);
 
-        var response = await JsonDocument.ParseAsync(body);
-
-        response.RootElement.GetProperty("id").GetInt64().Should().Be(_expenseId);
-        response.RootElement.GetProperty("title").GetString().Should().NotBeNullOrWhiteSpace();
-        response.RootElement.GetProperty("description").GetString().Should().NotBeNullOrWhiteSpace();
-        response.RootElement.GetProperty("amount").GetDecimal().Should().BeGreaterThan(0);
-
-        var paymentType = response.RootElement.GetProperty("paymentType").GetInt32();
-        Enum.IsDefined(typeof(PaymentsType), paymentType).Should().BeTrue();
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Fact]
     public async Task Error_Expense_Not_Fount()
     {
-        var result = await DoGet(requestUri: $"{Method}/1000", token: _token);
+        var result = await DoDelete(requestUri: $"{Method}/1000", token: _token);
 
         result.StatusCode.Should().Be(HttpStatusCode.NotFound);
 

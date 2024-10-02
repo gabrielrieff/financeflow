@@ -8,19 +8,19 @@ namespace FinanceFlow.Application.UseCases.Expenses.DeleteById;
 
 public class DeleteExpenseUseCase : IDeleteExpenseUseCase
 {
-    private readonly IExpensesReadOnlyRepository _expensesReadOnly;
-    private readonly IExpensesWhiteOnlyRepository _repository;
+    private readonly IExpensesReadOnlyRepository _repositoryReadOnly;
+    private readonly IExpensesWhiteOnlyRepository _repositoryWhiteOnly;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILoggedUser _loggedUser;
 
     public DeleteExpenseUseCase(
-        IExpensesReadOnlyRepository expensesReadOnly,
-        IExpensesWhiteOnlyRepository repositories,
+        IExpensesReadOnlyRepository repositoryReadOnly,
+        IExpensesWhiteOnlyRepository repositoryWhiteOnly,
         IUnitOfWork unitOfWork,
         ILoggedUser loggedUser)
     {
-        _expensesReadOnly = expensesReadOnly;
-        _repository = repositories;
+        _repositoryReadOnly = repositoryReadOnly;
+        _repositoryWhiteOnly = repositoryWhiteOnly;
         _unitOfWork = unitOfWork;
         _loggedUser = loggedUser;
     }
@@ -29,13 +29,13 @@ public class DeleteExpenseUseCase : IDeleteExpenseUseCase
     {
         var loggedUser = await _loggedUser.Get();
 
-        var expense = await _expensesReadOnly.GetById(loggedUser, id);
+        var expense = await _repositoryReadOnly.GetById(loggedUser, id);
 
         if(expense is null){
             throw new NotFoundException(ResourceErrorsMessage.EXPENSES_NOT_FOUND);
         }
 
-        await _repository.DeleteById(id);
+        await _repositoryWhiteOnly.DeleteById(id);
 
 
         await _unitOfWork.Commit();
