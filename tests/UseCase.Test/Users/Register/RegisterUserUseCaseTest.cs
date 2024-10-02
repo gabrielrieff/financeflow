@@ -1,6 +1,8 @@
 ﻿using commonTestUtilities.Cryptography;
 using commonTestUtilities.Mapper;
 using commonTestUtilities.Repositories;
+using commonTestUtilities.Repositories.User;
+using commonTestUtilities.Repositories.Users;
 using commonTestUtilities.Requests.User;
 using commonTestUtilities.Token;
 using FinanceFlow.Application.UseCases.Users.Register;
@@ -50,9 +52,6 @@ public class RegisterUserUseCaseTest
 
         result.Where(ex => ex.GetErrors().Count == 1 &&
                      ex.GetErrors().Contains(ResourceErrorsMessage.EMAIL_EXIST));
-
-
-
     }
 
     private RegisterUserUseCase CreateUseCase(string? email = null)

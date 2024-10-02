@@ -2,7 +2,7 @@
 using FinanceFlow.Communication.Enums;
 using FinanceFlow.Communication.Requests;
 
-namespace commonTestUtilities.Requests;
+namespace commonTestUtilities.Requests.Expense;
 
 public class RequestExpensesJsonBuilder
 {
@@ -16,6 +16,6 @@ public class RequestExpensesJsonBuilder
             .RuleFor(r => r.Create_at, faker => faker.Date.Past())
             .RuleFor(r => r.PaymentType, faker => faker.PickRandom<PaymentsType>())
             .RuleFor(r => r.Amount, faker => faker.Random.Decimal(min: 1, max: 1000));
-            
+
     }
 }

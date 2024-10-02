@@ -1,6 +1,6 @@
 ﻿using commonTestUtilities.Cryptography;
 using commonTestUtilities.Entities;
-using commonTestUtilities.Repositories;
+using commonTestUtilities.Repositories.Users;
 using commonTestUtilities.Requests.User;
 using commonTestUtilities.Token;
 using FinanceFlow.Application.UseCases.Login;

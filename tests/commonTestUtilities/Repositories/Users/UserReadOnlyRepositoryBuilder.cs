@@ -2,7 +2,7 @@
 using FinanceFlow.Domain.Repositories.Users;
 using Moq;
 
-namespace commonTestUtilities.Repositories;
+namespace commonTestUtilities.Repositories.Users;
 
 public class UserReadOnlyRepositoryBuilder
 {
@@ -18,7 +18,7 @@ public class UserReadOnlyRepositoryBuilder
         _repository.Setup(userReadOnly => userReadOnly.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
     }
 
-    public UserReadOnlyRepositoryBuilder GetUserByEmail(User user)
+    public UserReadOnlyRepositoryBuilder GetUserByEmail(FinanceFlow.Domain.Entities.User user)
     {
         _repository.Setup(userReadOnly => userReadOnly.GetUserByEmail(user.Email)).ReturnsAsync(user);
         return this;

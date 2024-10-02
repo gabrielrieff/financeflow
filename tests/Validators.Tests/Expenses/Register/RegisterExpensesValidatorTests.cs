@@ -1,4 +1,4 @@
-﻿using commonTestUtilities.Requests;
+﻿using commonTestUtilities.Requests.Expense;
 using FinanceFlow.Application.UseCases.Expenses;
 using FinanceFlow.Communication.Enums;
 using FinanceFlow.Exception.Resource;
