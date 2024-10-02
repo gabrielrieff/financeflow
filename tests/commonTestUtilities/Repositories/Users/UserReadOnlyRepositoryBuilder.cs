@@ -1,5 +1,4 @@
-﻿using FinanceFlow.Domain.Entities;
-using FinanceFlow.Domain.Repositories.Users;
+﻿using FinanceFlow.Domain.Repositories.Users;
 using Moq;
 
 namespace commonTestUtilities.Repositories.Users;
