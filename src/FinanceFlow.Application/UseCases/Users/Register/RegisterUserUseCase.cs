@@ -16,7 +16,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 {
 
     private readonly IMapper _mapper;
-    private readonly IPassawordEncripter _passwordEncriter;
+    private readonly IPasswordEncripter _passwordEncriter;
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IUserWhiteOnlyRepository _userWhiteOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -25,7 +25,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
     public RegisterUserUseCase(
         IMapper mapper,
-        IPassawordEncripter passwordEncriter,
+        IPasswordEncripter passwordEncriter,
         IUserReadOnlyRepository userReadOnlyRepository,
         IUserWhiteOnlyRepository userWhiteOnlyRepository,
         IUnitOfWork unitOfWork,

@@ -43,7 +43,7 @@ public class ExpensesController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(typeof(RequestExpenseJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseExpenseJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(
         [FromServices] IGetExpenseUseCase useCase,

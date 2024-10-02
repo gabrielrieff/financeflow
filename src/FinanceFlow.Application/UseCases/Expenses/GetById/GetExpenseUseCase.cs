@@ -1,6 +1,6 @@
 using AutoMapper;
 using FinanceFlow.Application.UseCases.Expenses.Get;
-using FinanceFlow.Communication.Requests;
+using FinanceFlow.Communication.Responses;
 using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Exception.ExceptionBase;
@@ -25,7 +25,7 @@ public class GetExpenseUseCase : IGetExpenseUseCase
         _loggedUser = loggedUser;
 
     }
-    public async Task<RequestExpenseJson> Execute(long id)
+    public async Task<ResponseExpenseJson> Execute(long id)
     {
         var loggedUser = await _loggedUser.Get();
 
@@ -36,7 +36,7 @@ public class GetExpenseUseCase : IGetExpenseUseCase
             throw new NotFoundException(ResourceErrorsMessage.EXPENSES_NOT_FOUND);
         }
 
-        return _mapper.Map<RequestExpenseJson>(result);
+        return _mapper.Map<ResponseExpenseJson>(result);
     }
 
 }

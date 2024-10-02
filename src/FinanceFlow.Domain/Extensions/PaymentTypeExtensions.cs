@@ -5,14 +5,14 @@ namespace FinanceFlow.Domain.Extensions;
 
 public static class PaymentTypeExtensions
 {
-    public static string PaymentTypeToString(this PaymentsType paymentType)
+    public static string PaymentTypeToString(this PaymentType paymentType)
     {
         return paymentType switch
         {
-            PaymentsType.Cash => ResourceReportGenerationMessage.PAYMENT_TYPE_CASH,
-            PaymentsType.CreditCard => ResourceReportGenerationMessage.PAYMENT_TYPE_CREDIT_CARD,
-            PaymentsType.DebitCard => ResourceReportGenerationMessage.PAYMENT_TYPE_DEBIT_CARD,
-            PaymentsType.EletronicTransfer => ResourceReportGenerationMessage.PAYMENT_TYPE_ELETRONIC_TRANSFER,
+            PaymentType.Cash => ResourceReportGenerationMessage.PAYMENT_TYPE_CASH,
+            PaymentType.CreditCard => ResourceReportGenerationMessage.PAYMENT_TYPE_CREDIT_CARD,
+            PaymentType.DebitCard => ResourceReportGenerationMessage.PAYMENT_TYPE_DEBIT_CARD,
+            PaymentType.EletronicTransfer => ResourceReportGenerationMessage.PAYMENT_TYPE_ELETRONIC_TRANSFER,
             _ => string.Empty
         };
     }

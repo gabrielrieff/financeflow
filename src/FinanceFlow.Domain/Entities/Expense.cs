@@ -14,7 +14,7 @@ public class Expense
 
     public decimal Amount { get; set; }
 
-    public PaymentsType PaymentType { get; set; }
+    public PaymentType PaymentType { get; set; }
 
     public long UserId { get; set; }
 

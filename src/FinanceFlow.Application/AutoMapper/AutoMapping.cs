@@ -26,6 +26,7 @@ public class AutoMapping : Profile
         //Expense
         CreateMap<Expense, ResponseShortExpenseJson>();
         CreateMap<Expense, RequestExpenseJson>();
+        CreateMap<Expense, ResponseExpenseJson>();
         CreateMap<Expense, ResponseRegisteredExpensesJson>();
 
         //User

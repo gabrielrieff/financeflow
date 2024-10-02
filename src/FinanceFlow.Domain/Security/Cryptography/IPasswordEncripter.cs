@@ -1,5 +1,5 @@
 ﻿namespace FinanceFlow.Domain.Security.Cryptography;
-public interface IPassawordEncripter
+public interface IPasswordEncripter
 {
     string Encrypt(string password);
 

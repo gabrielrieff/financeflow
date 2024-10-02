@@ -10,13 +10,13 @@ namespace FinanceFlow.Application.UseCases.Login;
 public class DoLoginUseCase : IDoLoginUseCase
 {
     private readonly IUserReadOnlyRepository _repository;
-    private readonly IPassawordEncripter _passwordEncripter;
+    private readonly IPasswordEncripter _passwordEncripter;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
 
 
     public DoLoginUseCase(
             IUserReadOnlyRepository repository,
-            IPassawordEncripter passwordEncripter,
+            IPasswordEncripter passwordEncripter,
             IAccessTokenGenerator accessTokenGenerator)
     {
         _repository = repository;

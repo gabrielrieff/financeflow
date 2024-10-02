@@ -3,7 +3,7 @@ using FinanceFlow.Domain.Security.Cryptography;
 
 namespace FinanceFlow.Infrastructure.Security.Cryptography;
 
-public class BCrypt : IPassawordEncripter
+public class BCrypt : IPasswordEncripter
 {
     public string Encrypt(string password)
     {
