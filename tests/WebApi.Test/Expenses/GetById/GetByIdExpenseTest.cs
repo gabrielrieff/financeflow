@@ -1,9 +1,7 @@
 ﻿using FinanceFlow.Communication.Enums;
 using FinanceFlow.Exception.Resource;
 using FluentAssertions;
-using System.Globalization;
 using System.Net;
-using System.Resources;
 using System.Text.Json;
 
 namespace WebApi.Test.Expenses.GetById;
