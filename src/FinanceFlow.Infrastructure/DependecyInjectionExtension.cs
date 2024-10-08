@@ -48,6 +48,7 @@ public static class DependecyInjectionExtension
         //User
         services.AddScoped<IUserReadOnlyRepository, UserRepositories>();
         services.AddScoped<IUserWhiteOnlyRepository, UserRepositories>();
+        services.AddScoped<IUserUpdateOnlyRepository, UserRepositories>();
 
         //Expense
         services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepositories>();

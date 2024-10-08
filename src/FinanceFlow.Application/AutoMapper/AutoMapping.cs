@@ -2,6 +2,7 @@ using AutoMapper;
 using FinanceFlow.Communication.Requests;
 using FinanceFlow.Communication.Requests.Users;
 using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Users;
 using FinanceFlow.Domain.Entities;
 
 namespace FinanceFlow.Application.AutoMapper;
@@ -30,5 +31,7 @@ public class AutoMapping : Profile
         CreateMap<Expense, ResponseRegisteredExpensesJson>();
 
         //User
+        CreateMap<User, ResponseUserProfileJson>();
+
     }
 }

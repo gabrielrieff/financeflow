@@ -1,7 +1,10 @@
-﻿using FinanceFlow.Application.UseCases.Users.Register;
+﻿using FinanceFlow.Application.UseCases.Users.GetProfile;
+using FinanceFlow.Application.UseCases.Users.Register;
+using FinanceFlow.Application.UseCases.Users.UpdateProfile;
 using FinanceFlow.Communication.Requests.Users;
 using FinanceFlow.Communication.Responses;
 using FinanceFlow.Communication.Responses.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceFlow.Api.Controllers;
@@ -20,4 +23,28 @@ public class UserController : ControllerBase
 
         return Created(string.Empty, response);
     }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseUserProfileJson), StatusCodes.Status200OK)]
+    [Authorize]
+    public async Task<IActionResult> GetProfile([FromServices] IGetProfileUseCase useCase)
+    {
+        var response = await useCase.Execute();
+
+        return Ok(response);
+    }
+
+    [HttpPut]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateProfile(
+        [FromServices] IUpdateProfileUseCase useCase,
+        [FromBody] RequestUpdateProfileJson request)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
+    }
+
 }
