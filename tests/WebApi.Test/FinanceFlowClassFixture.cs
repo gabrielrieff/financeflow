@@ -21,6 +21,16 @@ public class FinanceFlowClassFixture : IClassFixture<CustomWebApplicationFactory
         return await _httpClient.PostAsJsonAsync(requestUri, request);
     }
 
+    protected async Task<HttpResponseMessage> DoPut(
+        string requestUri,
+        object request,
+        string token)
+    {
+        AuthorizeRequest(token);
+
+        return await _httpClient.PutAsJsonAsync(requestUri, request);
+    }
+
     protected async Task<HttpResponseMessage> DoGet(
         string requestUri,
         string token)

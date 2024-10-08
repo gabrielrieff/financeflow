@@ -1,7 +1,6 @@
 ﻿using commonTestUtilities.Cryptography;
 using commonTestUtilities.Mapper;
 using commonTestUtilities.Repositories;
-using commonTestUtilities.Repositories.User;
 using commonTestUtilities.Repositories.Users;
 using commonTestUtilities.Requests.User;
 using commonTestUtilities.Token;

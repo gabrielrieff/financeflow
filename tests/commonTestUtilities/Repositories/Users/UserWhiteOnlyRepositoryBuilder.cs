@@ -1,7 +1,7 @@
 ﻿using FinanceFlow.Domain.Repositories.Users;
 using Moq;
 
-namespace commonTestUtilities.Repositories.User;
+namespace commonTestUtilities.Repositories.Users;
 
 public class UserWhiteOnlyRepositoryBuilder
 {

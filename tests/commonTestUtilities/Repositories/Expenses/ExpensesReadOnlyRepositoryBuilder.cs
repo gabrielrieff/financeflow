@@ -13,13 +13,19 @@ public class ExpensesReadOnlyRepositoryBuilder
         _repository = new Mock<IExpensesReadOnlyRepository>();
     }
 
-    public ExpensesReadOnlyRepositoryBuilder GetAll(FinanceFlow.Domain.Entities.User user, List<Expense> expenses)
+    public ExpensesReadOnlyRepositoryBuilder GetAll(User user, List<Expense> expenses)
     {
         _repository.Setup(repo => repo.GetAll(user)).ReturnsAsync(expenses);
         return this;
     }
+    
+    public ExpensesReadOnlyRepositoryBuilder FilterByMonth(User user, List<Expense> expenses)
+    {
+        _repository.Setup(repo => repo.FilterByMonth(user, It.IsAny<DateOnly>())).ReturnsAsync(expenses);
+        return this;
+    }
 
-    public ExpensesReadOnlyRepositoryBuilder GetById(FinanceFlow.Domain.Entities.User user, Expense? expenses)
+    public ExpensesReadOnlyRepositoryBuilder GetById(User user, Expense? expenses)
     {
         if (expenses is not null)
             _repository.Setup(repo => repo.GetById(user, expenses.Id)).ReturnsAsync(expenses);

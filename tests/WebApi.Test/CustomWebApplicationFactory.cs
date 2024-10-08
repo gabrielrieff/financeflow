@@ -77,4 +77,5 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         _expenseIdentity = new ExpenseIdentityManager(expense);
     }
+
 }

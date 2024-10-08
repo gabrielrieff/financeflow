@@ -27,7 +27,7 @@ public class DeleteByIdUseCaseTest
         result.Description.Should().Be(expenses.Description);
         result.Create_at.Should().Be(expenses.Create_at);
         result.Amount.Should().Be(expenses.Amount);
-        result.PaymentType.Should().Be((FinanceFlow.Communication.Enums.PaymentsType)expenses.PaymentType);
+        result.PaymentType.Should().Be((FinanceFlow.Communication.Enums.PaymentType)expenses.PaymentType);
     }
 
     [Fact]

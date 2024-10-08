@@ -38,7 +38,7 @@ public class DeleteByIdExpenseTest : FinanceFlowClassFixture
         response.RootElement.GetProperty("amount").GetDecimal().Should().BeGreaterThan(0);
 
         var paymentType = response.RootElement.GetProperty("paymentType").GetInt32();
-        Enum.IsDefined(typeof(PaymentsType), paymentType).Should().BeTrue();
+        Enum.IsDefined(typeof(PaymentType), paymentType).Should().BeTrue();
     }
 
     [Fact]

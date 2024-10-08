@@ -10,12 +10,12 @@ namespace FinanceFlow.Api.Controllers;
 [Authorize]
 public class ReportController : ControllerBase
 {
-    [HttpGet("Excel")]
+    [HttpGet("excel")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetExcel(
         [FromServices] IGenerateExpensesReportExcelUseCase useCase,
-        [FromHeader] DateOnly month
+        [FromQuery] DateOnly month
     )
     {
         byte[] file = await useCase.Excute(month);
@@ -26,7 +26,7 @@ public class ReportController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet("PDF")]
+    [HttpGet("pdf")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetPDF(
