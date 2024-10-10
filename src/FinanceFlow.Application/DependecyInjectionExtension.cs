@@ -8,6 +8,7 @@ using FinanceFlow.Application.UseCases.Expenses.Update;
 using FinanceFlow.Application.UseCases.Login;
 using FinanceFlow.Application.UseCases.Users.GetProfile;
 using FinanceFlow.Application.UseCases.Users.Register;
+using FinanceFlow.Application.UseCases.Users.UpdatePassword;
 using FinanceFlow.Application.UseCases.Users.UpdateProfile;
 using Microsoft.Extensions.DependencyInjection;
 namespace FinanceFlow.Api;
@@ -42,5 +43,6 @@ public static class DependecyInjectionExtension
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         services.AddScoped<IGetProfileUseCase, GetProfileUseCase>();
         services.AddScoped<IUpdateProfileUseCase, UpdateProfileUseCase>();
+        services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
     }
 }

@@ -151,6 +151,15 @@ namespace FinanceFlow.Exception.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password must be different from the current password..
+        /// </summary>
+        public static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {
+            get {
+                return ResourceManager.GetString("PASSWORD_DIFFERENT_CURRENT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment type is not valid..
         /// </summary>
         public static string PAYMENT_TYPE_INVALID {
