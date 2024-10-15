@@ -39,7 +39,7 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
 
         var user = await _updateRepository.GetById(loggedUser.Id);
 
-        user.Password = _passwordEncripter.Encrypt(request.Password);
+        user.Password = _passwordEncripter.Encrypt(request.NewPassword);
 
         _updateRepository.Update(user);
 
@@ -48,7 +48,7 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
 
     private void Validate(RequestChangePasswordJson request, User loggedUser)
     {
-        var validator = new UpdateUserPasswordValidator();
+        var validator = new ChangePasswordValidator();
 
         var result = validator.Validate(request);
 
