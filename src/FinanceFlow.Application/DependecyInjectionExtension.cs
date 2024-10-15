@@ -6,6 +6,7 @@ using FinanceFlow.Application.UseCases.Expenses.Register;
 using FinanceFlow.Application.UseCases.Expenses.Report;
 using FinanceFlow.Application.UseCases.Expenses.Update;
 using FinanceFlow.Application.UseCases.Login;
+using FinanceFlow.Application.UseCases.Users.DeleteUser;
 using FinanceFlow.Application.UseCases.Users.GetProfile;
 using FinanceFlow.Application.UseCases.Users.Register;
 using FinanceFlow.Application.UseCases.Users.UpdatePassword;
@@ -44,5 +45,6 @@ public static class DependecyInjectionExtension
         services.AddScoped<IGetProfileUseCase, GetProfileUseCase>();
         services.AddScoped<IUpdateProfileUseCase, UpdateProfileUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
+        services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
     }
 }
