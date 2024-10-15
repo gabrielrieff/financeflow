@@ -159,4 +159,7 @@
   <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
     <value>Senha deve ser diferente da senha atual.</value>
   </data>
+  <data name="TAG_TYPE_NOT_SUPPORTED" xml:space="preserve">
+    <value>Tag não é suportada.</value>
+  </data>
 </root>

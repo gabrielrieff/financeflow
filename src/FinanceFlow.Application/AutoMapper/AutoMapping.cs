@@ -1,7 +1,7 @@
 using AutoMapper;
-using FinanceFlow.Communication.Requests;
+using FinanceFlow.Communication.Requests.Expenses;
 using FinanceFlow.Communication.Requests.Users;
-using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Expenses;
 using FinanceFlow.Communication.Responses.Users;
 using FinanceFlow.Domain.Entities;
 
@@ -17,17 +17,24 @@ public class AutoMapping : Profile
 
     private void RequestToEntity()
     {
-        CreateMap<RequestExpenseJson, Expense>();
         CreateMap<RequestUserJson, User>()
             .ForMember(dest => dest.Password, config => config.Ignore());
+
+        CreateMap<RequestExpenseJson, Expense>()
+            .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Distinct()));
+
+        CreateMap<Communication.Enums.Tag, Tag>()
+            .ForMember(dest => dest.Value, config => config.MapFrom(source => source));
     }
 
     private void EntityToResponse()
     {
         //Expense
+        CreateMap<Expense, ResponseExpenseJson>()
+            .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Select(tag => tag.Value)));
+
         CreateMap<Expense, ResponseShortExpenseJson>();
         CreateMap<Expense, RequestExpenseJson>();
-        CreateMap<Expense, ResponseExpenseJson>();
         CreateMap<Expense, ResponseRegisteredExpensesJson>();
 
         //User

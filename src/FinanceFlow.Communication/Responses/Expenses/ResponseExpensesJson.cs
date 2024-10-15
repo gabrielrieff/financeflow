@@ -1,4 +1,4 @@
-namespace FinanceFlow.Communication.Responses;
+namespace FinanceFlow.Communication.Responses.Expenses;
 
 public class ResponseExpensesJson
 {

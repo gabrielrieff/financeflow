@@ -25,14 +25,15 @@ internal class ExpensesRepositories : IExpensesReadOnlyRepository, IExpensesWhit
 
     async Task<Expense?> IExpensesReadOnlyRepository.GetById(User user, long id)
     {
-        return await _dbContext.Expenses
+        return await GetFullExpenses()
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id);
     }
 
     async Task<Expense?> IExpensesUpdateOnlyRepository.GetById(User user, long id)
     {
-        return await _dbContext.Expenses.FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id);
+        return await GetFullExpenses()
+            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id);
     }
 
     public async Task DeleteById(long id)
@@ -59,5 +60,12 @@ internal class ExpensesRepositories : IExpensesReadOnlyRepository, IExpensesWhit
         .Where(ex => ex.UserId == user.Id && ex.Create_at >= startDate && ex.Create_at <= endDate)
         .OrderBy(ex => ex.Create_at)
         .ToListAsync();
+    }
+
+
+    private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Expense, ICollection<Tag>> GetFullExpenses()
+    {
+        return _dbContext.Expenses
+           .Include(expense => expense.Tags);
     }
 }

@@ -1,4 +1,4 @@
-using FinanceFlow.Communication.Requests;
+using FinanceFlow.Communication.Requests.Expenses;
 using FinanceFlow.Exception.Resource;
 using FluentValidation;
 
@@ -19,5 +19,10 @@ public class ExpenseValidator : AbstractValidator<RequestExpenseJson>
 
         RuleFor(expense => expense.PaymentType).IsInEnum()
             .WithMessage(ResourceErrorsMessage.PAYMENT_TYPE_INVALID);
+
+        RuleFor(expense => expense.Tags).ForEach(rule =>
+        {
+            rule.IsInEnum().WithMessage(ResourceErrorsMessage.TAG_TYPE_NOT_SUPPORTED);
+        });
     }
 }

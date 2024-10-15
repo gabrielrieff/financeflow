@@ -1,5 +1,5 @@
 using AutoMapper;
-using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Expenses;
 using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Domain.Services.LoggedUser;
 

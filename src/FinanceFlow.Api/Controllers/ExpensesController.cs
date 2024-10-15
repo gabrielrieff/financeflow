@@ -3,8 +3,9 @@ using FinanceFlow.Application.UseCases.Expenses.Get;
 using FinanceFlow.Application.UseCases.Expenses.GetAll;
 using FinanceFlow.Application.UseCases.Expenses.Register;
 using FinanceFlow.Application.UseCases.Expenses.Update;
-using FinanceFlow.Communication.Requests;
+using FinanceFlow.Communication.Requests.Expenses;
 using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Expenses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

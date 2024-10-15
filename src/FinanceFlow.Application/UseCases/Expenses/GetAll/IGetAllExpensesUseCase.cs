@@ -1,4 +1,4 @@
-using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Expenses;
 
 namespace FinanceFlow.Application.UseCases.Expenses.GetAll;
 

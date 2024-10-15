@@ -1,6 +1,6 @@
 ﻿using Bogus;
 using FinanceFlow.Communication.Enums;
-using FinanceFlow.Communication.Requests;
+using FinanceFlow.Communication.Requests.Expenses;
 
 namespace commonTestUtilities.Requests.Expense;
 

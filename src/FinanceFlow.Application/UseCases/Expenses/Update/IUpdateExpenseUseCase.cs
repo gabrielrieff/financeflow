@@ -1,4 +1,4 @@
-using FinanceFlow.Communication.Requests;
+using FinanceFlow.Communication.Requests.Expenses;
 
 namespace FinanceFlow.Application.UseCases.Expenses.Update;
 

@@ -1,5 +1,5 @@
 using FinanceFlow.Communication.Requests;
-using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Expenses;
 
 namespace FinanceFlow.Application.UseCases.Expenses.Get;
 

@@ -169,6 +169,15 @@ namespace FinanceFlow.Exception.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tag is not supported..
+        /// </summary>
+        public static string TAG_TYPE_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("TAG_TYPE_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The title is required..
         /// </summary>
         public static string TITLE_REQUIRED {

@@ -1,6 +1,6 @@
 using FinanceFlow.Communication.Enums;
 
-namespace FinanceFlow.Communication.Requests;
+namespace FinanceFlow.Communication.Requests.Expenses;
 
 public class RequestExpenseJson
 {
@@ -13,4 +13,6 @@ public class RequestExpenseJson
     public decimal Amount { get; set; }
 
     public PaymentType PaymentType { get; set; }
+
+    public IList<Tag> Tags { get; set; } = [];
 }

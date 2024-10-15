@@ -1,6 +1,6 @@
 using AutoMapper;
 using FinanceFlow.Application.UseCases.Expenses.Get;
-using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Expenses;
 using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Exception.ExceptionBase;
