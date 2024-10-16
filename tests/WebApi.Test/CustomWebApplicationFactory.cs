@@ -45,7 +45,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         IAccessTokenGenerator AccessTokenGenerator)
     {
         var user = AddUser(dbContext, passwordEncripter, AccessTokenGenerator);
-        AddExpenses(dbContext, user);
+        AddExpenses(dbContext, user, expenseId: 2, tagId: 2);
 
         dbContext.SaveChanges();
     }
@@ -69,9 +69,16 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         return user;
     }
 
-    private void AddExpenses(FinanceFlowDbContext dbContext, User user)
+    private void AddExpenses(FinanceFlowDbContext dbContext, User user, long expenseId, long tagId)
     {
         var expense = ExpenseBuilder.Build(user);
+        expense.Id = expenseId;
+
+        foreach (var tag in expense.Tags)
+        {
+            tag.ExpenseId = expenseId;
+            tag.Id = tagId;
+        };
 
         dbContext.Expenses.Add(expense);
 

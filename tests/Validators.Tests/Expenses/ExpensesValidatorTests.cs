@@ -4,9 +4,9 @@ using FinanceFlow.Communication.Enums;
 using FinanceFlow.Exception.Resource;
 using FluentAssertions;
 
-namespace Validators.Tests.Expenses.Register;
+namespace Validators.Tests.Expenses;
 
-public class RegisterExpensesValidatorTests
+public class ExpensesValidatorTests
 {
     [Fact]
     public void Success()
@@ -31,7 +31,7 @@ public class RegisterExpensesValidatorTests
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorsMessage.TITLE_REQUIRED));
     }
-    
+
     [Fact]
     public void ErrorCreate_AtFuture()
     {
@@ -44,7 +44,7 @@ public class RegisterExpensesValidatorTests
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorsMessage.EXPENSES_CANNOT_FOR_THE_FUTURE));
     }
-    
+
     [Fact]
     public void ErrorPaymentsTypeInvalid()
     {
@@ -74,5 +74,20 @@ public class RegisterExpensesValidatorTests
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorsMessage.AMOUNT_MUST_BE_GREATER_THAN_ZERO));
     }
+
+
+    [Fact]
+    public void Error_Tag_Invalid()
+    {
+        var validator = new ExpenseValidator();
+        var request = RequestExpensesJsonBuilder.Build();
+        request.Tags.Add((Tag)100);
+
+        var result = validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorsMessage.TAG_TYPE_NOT_SUPPORTED));
+    }
+
 
 }
