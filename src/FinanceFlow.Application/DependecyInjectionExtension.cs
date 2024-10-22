@@ -1,4 +1,5 @@
 using FinanceFlow.Application.AutoMapper;
+using FinanceFlow.Application.UseCases.Accounts.Register;
 using FinanceFlow.Application.UseCases.Expenses.DeleteById;
 using FinanceFlow.Application.UseCases.Expenses.Get;
 using FinanceFlow.Application.UseCases.Expenses.GetAll;
@@ -46,5 +47,9 @@ public static class DependecyInjectionExtension
         services.AddScoped<IUpdateProfileUseCase, UpdateProfileUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+
+        //Acount
+        services.AddScoped<IRegisterAccountUseCase, RegisterAccountUseCase>();
+
     }
 }

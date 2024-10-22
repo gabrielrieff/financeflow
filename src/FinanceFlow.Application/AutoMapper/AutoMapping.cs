@@ -1,4 +1,5 @@
 using AutoMapper;
+using FinanceFlow.Communication.Requests.Accounts;
 using FinanceFlow.Communication.Requests.Expenses;
 using FinanceFlow.Communication.Requests.Users;
 using FinanceFlow.Communication.Responses.Expenses;
@@ -25,6 +26,15 @@ public class AutoMapping : Profile
 
         CreateMap<Communication.Enums.Tag, Tag>()
             .ForMember(dest => dest.Value, config => config.MapFrom(source => source));
+
+        //Account
+        CreateMap<AccountRequestJson, Account>()
+            .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Distinct()));
+        
+        //Recurrence
+        CreateMap<RecurrenceRequestJson, Recurrence>();
+
+
     }
 
     private void EntityToResponse()

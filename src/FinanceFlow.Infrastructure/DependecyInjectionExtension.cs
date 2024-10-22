@@ -1,10 +1,12 @@
 ﻿using FinanceFlow.Domain.Repositories;
+using FinanceFlow.Domain.Repositories.Accounts;
 using FinanceFlow.Domain.Repositories.Expenses;
 using FinanceFlow.Domain.Repositories.Users;
 using FinanceFlow.Domain.Security.Cryptography;
 using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Infrastructure.DataAccess;
+using FinanceFlow.Infrastructure.DataAccess.Repositories.Accounts;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Expenses;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Users;
 using FinanceFlow.Infrastructure.Extensions;
@@ -54,6 +56,9 @@ public static class DependecyInjectionExtension
         services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepositories>();
         services.AddScoped<IExpensesWhiteOnlyRepository, ExpensesRepositories>();
         services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepositories>();
+
+        //Account
+        services.AddScoped<IAccountWhiteOnlyRepository, AccountsRepositories>();
 
     }
     
