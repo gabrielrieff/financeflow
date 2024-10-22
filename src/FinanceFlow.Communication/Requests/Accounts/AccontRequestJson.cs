@@ -22,7 +22,7 @@ public class AccountRequestJson
     public DateTime Update_at { get; set; }
 
     public RecurrenceRequestJson? RecurrenceRequestJson { get; set; }
-    public TransactionRequestJson? TransactionRequestJson { get; set; }
+    public TransactionRequestJson TransactionRequestJson { get; set; }
 }
 
 

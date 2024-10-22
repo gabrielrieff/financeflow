@@ -3,6 +3,8 @@ using FinanceFlow.Communication.Requests.Accounts;
 using FinanceFlow.Domain.Entities;
 using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Accounts;
+using FinanceFlow.Domain.Repositories.Reccurences;
+using FinanceFlow.Domain.Repositories.Transactions;
 using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Exception.ExceptionBase;
 
@@ -12,17 +14,23 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
 {
 
     private readonly IAccountWhiteOnlyRepository _repository;
+    private readonly IReccurenceWhiteOnlyRepository _repositoryReccurence;
+    private readonly ITransactionWhiteOnlyRepository _repositoryTransction;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILoggedUser _loggedUser;
 
     public RegisterAccountUseCase(
                 IAccountWhiteOnlyRepository repository,
+                IReccurenceWhiteOnlyRepository repositoryReccurence,
+                ITransactionWhiteOnlyRepository repositoryTransction,
                 IUnitOfWork unitOfWork,
                 IMapper mapper,
                 ILoggedUser loggedUser)
     {
         _repository = repository;
+        _repositoryReccurence = repositoryReccurence;
+        _repositoryTransction = repositoryTransction;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _loggedUser = loggedUser;
@@ -33,31 +41,49 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
         ValidatorAccount(request);
         var loggedUser = await _loggedUser.Get();
 
-        var accountMapper = _mapper.Map<Account>(request);
-        accountMapper.UserID = loggedUser.Id;
+        await _unitOfWork.BeginTransactionAsync();
 
-        var account = await _repository.Add(accountMapper);
-
-        await _unitOfWork.Commit();
-
-        if (request.RecurrenceRequestJson is not null)
+        try
         {
-            //validar e salvar uma recorrencia
-            ValidatorRecurrence(request.RecurrenceRequestJson);
-            var reccurence = _mapper.Map<Recurrence>(request.RecurrenceRequestJson);
-            reccurence.AccountID = account.ID;
-
+            // Criação de conta
+            var accountMapper = _mapper.Map<Account>(request);
+            accountMapper.UserID = loggedUser.Id;
+            var account = await _repository.Add(accountMapper);
             await _unitOfWork.Commit();
-        }
 
-        if (request.TransactionRequestJson is not null)
+            // Recorrência
+            if (request.RecurrenceRequestJson is not null)
+            {
+                ValidatorRecurrence(request.RecurrenceRequestJson);
+                var reccurence = _mapper.Map<Recurrence>(request.RecurrenceRequestJson);
+                reccurence.AccountID = account.ID;
+                reccurence.Amount = request.Amount;
+
+                await _repositoryReccurence.Add(reccurence);
+            }
+
+            // Transação
+            if (string.IsNullOrEmpty(request.TransactionRequestJson.Description))
+            {
+                throw new NotFoundException("Descrição é um valor requerido.");
+            }
+
+            var trasaction = _mapper.Map<Transaction>(request.TransactionRequestJson);
+            trasaction.AccountID = account.ID;
+            trasaction.Amount = request.Amount;
+
+            await _repositoryTransction.Add(trasaction);
+
+            // Confirmação final da transação
+            await _unitOfWork.CommitTransactionAsync();
+
+            return "Registro concluído";
+        }
+        catch (NotFoundException ex)
         {
-            //validar e salvar uma transação
-
-            await _unitOfWork.Commit();
+            await _unitOfWork.RollbackTransactionAsync();
+            throw new NotFoundException("Erro ao realizar o registro");
         }
-
-        return "d";
     }
 
     private void ValidatorAccount(AccountRequestJson entiti)

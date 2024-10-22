@@ -20,4 +20,15 @@ public class AccountController : ControllerBase
 
         return Created(string.Empty, response);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetMonth(
+        [FromBody] AccountRequestJson request,
+        [FromServices] IRegisterAccountUseCase useCase
+        )
+    {
+        var response = await useCase.Execute(request);
+
+        return Created(string.Empty, response);
+    }
 }

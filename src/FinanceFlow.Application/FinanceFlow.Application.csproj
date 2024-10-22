@@ -5,12 +5,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="UseCases\Expenses\Report\PDF\Fonts\Inter-Black.ttf" />
-    <None Remove="UseCases\Expenses\Report\PDF\Fonts\Inter-Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UseCases\Expenses\Report\PDF\Fonts\Inter-Black.ttf" />
-    <EmbeddedResource Include="UseCases\Expenses\Report\PDF\Fonts\Inter-Regular.ttf" />
+    <Compile Remove="UseCases\Expenses\**" />
+    <EmbeddedResource Remove="UseCases\Expenses\**" />
+    <None Remove="UseCases\Expenses\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />

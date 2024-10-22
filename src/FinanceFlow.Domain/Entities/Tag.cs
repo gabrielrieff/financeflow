@@ -6,7 +6,7 @@ public class Tag
 
     public Enums.Tag Value { get; set; }
 
-    public long ExpenseId { get; set; }
+    public long AccountId { get; set; }
 
-    public Expense Expense { get; set; } = default!;
+    public Account Account { get; set; } = default!;
 }

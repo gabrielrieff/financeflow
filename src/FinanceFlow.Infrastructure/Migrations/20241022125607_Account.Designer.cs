@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanceFlow.Infrastructure.Migrations
 {
     [DbContext(typeof(FinanceFlowDbContext))]
-    [Migration("20241018021444_Account")]
+    [Migration("20241022125607_Account")]
     partial class Account
     {
         /// <inheritdoc />
@@ -59,40 +59,6 @@ namespace FinanceFlow.Infrastructure.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("FinanceFlow.Domain.Entities.Expense", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<DateTime>("Create_at")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("PaymentType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Expenses");
-                });
-
             modelBuilder.Entity("FinanceFlow.Domain.Entities.Recurrence", b =>
                 {
                     b.Property<long>("ID")
@@ -111,9 +77,6 @@ namespace FinanceFlow.Infrastructure.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("End_Date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("Last_Payment_Date")
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("Start_Date")
@@ -137,10 +100,7 @@ namespace FinanceFlow.Infrastructure.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("AccountID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ExpenseId")
+                    b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Value")
@@ -148,9 +108,7 @@ namespace FinanceFlow.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountID");
-
-                    b.HasIndex("ExpenseId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Tags", (string)null);
                 });
@@ -224,17 +182,6 @@ namespace FinanceFlow.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FinanceFlow.Domain.Entities.Expense", b =>
-                {
-                    b.HasOne("FinanceFlow.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FinanceFlow.Domain.Entities.Recurrence", b =>
                 {
                     b.HasOne("FinanceFlow.Domain.Entities.Account", "Account")
@@ -248,17 +195,13 @@ namespace FinanceFlow.Infrastructure.Migrations
 
             modelBuilder.Entity("FinanceFlow.Domain.Entities.Tag", b =>
                 {
-                    b.HasOne("FinanceFlow.Domain.Entities.Account", null)
+                    b.HasOne("FinanceFlow.Domain.Entities.Account", "Account")
                         .WithMany("Tags")
-                        .HasForeignKey("AccountID");
-
-                    b.HasOne("FinanceFlow.Domain.Entities.Expense", "Expense")
-                        .WithMany("Tags")
-                        .HasForeignKey("ExpenseId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Expense");
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("FinanceFlow.Domain.Entities.Transaction", b =>
@@ -273,11 +216,6 @@ namespace FinanceFlow.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("FinanceFlow.Domain.Entities.Account", b =>
-                {
-                    b.Navigation("Tags");
-                });
-
-            modelBuilder.Entity("FinanceFlow.Domain.Entities.Expense", b =>
                 {
                     b.Navigation("Tags");
                 });

@@ -5,6 +5,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Repositories\Expenses\**" />
+    <EmbeddedResource Remove="Repositories\Expenses\**" />
+    <None Remove="Repositories\Expenses\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Entities\Expense.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Reports\ResourceReportGenerationMessage.pt-BR.Designer.cs">
       <DependentUpon>ResourceReportGenerationMessage.pt-BR.resx</DependentUpon>
       <DesignTime>True</DesignTime>

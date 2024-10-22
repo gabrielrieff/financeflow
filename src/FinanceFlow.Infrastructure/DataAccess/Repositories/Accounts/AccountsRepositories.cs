@@ -3,11 +3,11 @@ using FinanceFlow.Domain.Repositories.Accounts;
 
 namespace FinanceFlow.Infrastructure.DataAccess.Repositories.Accounts;
 
-public class AccountsRepositories : IAccountWhiteOnlyRepository
+public class AccountRepositories : IAccountWhiteOnlyRepository
 {
     private readonly FinanceFlowDbContext _dbContext;
 
-    public AccountsRepositories(FinanceFlowDbContext dbContext)
+    public AccountRepositories(FinanceFlowDbContext dbContext)
     {
         _dbContext = dbContext;
     }

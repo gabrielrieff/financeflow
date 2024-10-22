@@ -1,11 +1,5 @@
 using FinanceFlow.Application.AutoMapper;
 using FinanceFlow.Application.UseCases.Accounts.Register;
-using FinanceFlow.Application.UseCases.Expenses.DeleteById;
-using FinanceFlow.Application.UseCases.Expenses.Get;
-using FinanceFlow.Application.UseCases.Expenses.GetAll;
-using FinanceFlow.Application.UseCases.Expenses.Register;
-using FinanceFlow.Application.UseCases.Expenses.Report;
-using FinanceFlow.Application.UseCases.Expenses.Update;
 using FinanceFlow.Application.UseCases.Login;
 using FinanceFlow.Application.UseCases.Users.DeleteUser;
 using FinanceFlow.Application.UseCases.Users.GetProfile;
@@ -31,13 +25,13 @@ public static class DependecyInjectionExtension
     {
 
         //Expenses
-        services.AddScoped<IRegisterExpensesUseCase, RegisterExpensesUseCase>();
-        services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
-        services.AddScoped<IGetExpenseUseCase, GetExpenseUseCase>();
-        services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
-        services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
-        services.AddScoped<IGenerateExpensesReportExcelUseCase, GenerateExpensesReportExcelUseCase>();
-        services.AddScoped<IGenerateExpensesReportPDFUseCase, GenerateExpensesReportPDFUseCase>();
+        //services.AddScoped<IRegisterExpensesUseCase, RegisterExpensesUseCase>();
+        //services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
+        //services.AddScoped<IGetExpenseUseCase, GetExpenseUseCase>();
+        //services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
+        //services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
+        //services.AddScoped<IGenerateExpensesReportExcelUseCase, GenerateExpensesReportExcelUseCase>();
+        //services.AddScoped<IGenerateExpensesReportPDFUseCase, GenerateExpensesReportPDFUseCase>();
 
 
         //User

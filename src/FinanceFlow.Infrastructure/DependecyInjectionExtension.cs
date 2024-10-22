@@ -1,13 +1,15 @@
 ﻿using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Accounts;
-using FinanceFlow.Domain.Repositories.Expenses;
+using FinanceFlow.Domain.Repositories.Reccurences;
+using FinanceFlow.Domain.Repositories.Transactions;
 using FinanceFlow.Domain.Repositories.Users;
 using FinanceFlow.Domain.Security.Cryptography;
 using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Domain.Services.LoggedUser;
 using FinanceFlow.Infrastructure.DataAccess;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Accounts;
-using FinanceFlow.Infrastructure.DataAccess.Repositories.Expenses;
+using FinanceFlow.Infrastructure.DataAccess.Repositories.Reccurences;
+using FinanceFlow.Infrastructure.DataAccess.Repositories.Transactions;
 using FinanceFlow.Infrastructure.DataAccess.Repositories.Users;
 using FinanceFlow.Infrastructure.Extensions;
 using FinanceFlow.Infrastructure.Security.Tokens;
@@ -52,13 +54,20 @@ public static class DependecyInjectionExtension
         services.AddScoped<IUserWhiteOnlyRepository, UserRepositories>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepositories>();
 
-        //Expense
-        services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepositories>();
-        services.AddScoped<IExpensesWhiteOnlyRepository, ExpensesRepositories>();
-        services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepositories>();
+        ////Expense
+        //services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepositories>();
+        //services.AddScoped<IExpensesWhiteOnlyRepository, ExpensesRepositories>();
+        //services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepositories>();
 
         //Account
-        services.AddScoped<IAccountWhiteOnlyRepository, AccountsRepositories>();
+        services.AddScoped<IAccountWhiteOnlyRepository, AccountRepositories>();
+
+        //Reccurence
+        services.AddScoped<IReccurenceWhiteOnlyRepository, ReccurenceRepositories>();
+
+
+        //Transaction
+        services.AddScoped<ITransactionWhiteOnlyRepository, TransactionRepositories>();
 
     }
     

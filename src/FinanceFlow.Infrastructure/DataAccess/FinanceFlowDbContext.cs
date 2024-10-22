@@ -9,7 +9,9 @@ public class FinanceFlowDbContext : DbContext
     public FinanceFlowDbContext(DbContextOptions options) : base(options){}
 
     public DbSet<Account> Accounts { get; set; }
-    public DbSet<Expense> Expenses { get; set; }
+
+    public DbSet<Recurrence> Recurrences { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
     public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -17,7 +19,6 @@ public class FinanceFlowDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Tag>().ToTable("Tags");
-        modelBuilder.Entity<Recurrence>().ToTable("Recurrences");
         modelBuilder.Entity<Transaction>().ToTable("Transactions");
     }
 
