@@ -57,7 +57,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
                 ValidatorRecurrence(request.RecurrenceRequestJson);
                 var reccurence = _mapper.Map<Recurrence>(request.RecurrenceRequestJson);
                 reccurence.AccountID = account.ID;
-                reccurence.Amount = request.Amount;
+                //reccurence.Amount = request.Amount;
 
                 await _repositoryReccurence.Add(reccurence);
             }

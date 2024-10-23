@@ -6,7 +6,11 @@ public class Account
 {
     public long ID { get; set; }
 
+    public decimal Amount { get; set; }
+
     public string Title { get; set; } = string.Empty;
+
+    public string? Description { get; set; }
 
     public TypeAccount TypeAccount { get; set; }
 

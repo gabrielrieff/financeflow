@@ -8,8 +8,6 @@ public class Transaction
 
     public decimal Amount { get; set; }
 
-    public string? Description { get; set; }
-
     public TypeAccount TypeAccount { get; set; }
 
     public DateTime Create_at { get; set; }

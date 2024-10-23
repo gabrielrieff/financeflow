@@ -19,7 +19,6 @@ public class FinanceFlowDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Tag>().ToTable("Tags");
-        modelBuilder.Entity<Transaction>().ToTable("Transactions");
     }
 
 }
