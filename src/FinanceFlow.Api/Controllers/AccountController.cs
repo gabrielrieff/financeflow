@@ -28,7 +28,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(List<ResponseAccountsJson>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CollectionAccountsResponseJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
 
     public async Task<IActionResult> GetMonth(
@@ -39,7 +39,7 @@ public class AccountController : ControllerBase
     {
         var response = await useCase.Execute(month, year);
 
-        if(response.Count != 0)
+        if(response.responseAccountsJsons.Count != 0)
         {
             return Ok(response);
         }

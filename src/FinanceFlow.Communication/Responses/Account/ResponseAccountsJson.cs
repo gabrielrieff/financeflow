@@ -2,52 +2,50 @@
 
 namespace FinanceFlow.Communication.Responses.Account;
 
-public class ResponseAccountsJson
+public class CollectionAccountsResponseJson
+{
+    public ICollection<AccountsJson> responseAccountsJsons { get; set; } = [];
+}
+
+public class AccountsJson
+{
+    public DateTime Month { get; set; }
+
+    public ICollection<AccountJson> Accounts { get; set; } = [];
+}
+
+public class AccountJson
 {
     public long ID { get; set; }
 
+    public decimal Amount { get; set; }
+    
     public string Title { get; set; } = string.Empty;
+
+    public string? Description { get; set; }
 
     public TypeAccount TypeAccount { get; set; }
 
     public ICollection<Tag> Tags { get; set; } = [];
 
-    public bool Status { get; set; }
-
-    public long UserID { get; set; }
-
-    public DateTime Create_at { get; set; }
-
-    public RecurrenceResponseJson? RecurrenceResponseJson { get; set; }
-    public List<TransactionResponseJson>? TransactionResponseJson { get; set; }
-}
-
-
-public class RecurrenceResponseJson
-{
-    public long ID { get; set; }
-
-    public decimal Amount { get; set; }
-
-    public long AccountID { get; set; }
-
     public DateTime Start_Date { get; set; }
 
     public DateTime End_Date { get; set; }
-}
 
-public class TransactionResponseJson
+    public int Installments
+    {
+        get
+        {
+            int diferencaAnos = End_Date.Year - Start_Date.Year;
+            int diferencaMeses = (diferencaAnos * 12) + End_Date.Month - Start_Date.Month;
 
-{
-    public long ID { get; set; }
+            // Se o dia da data final for menor que o dia da data inicial, subtrai um mês
+            if (End_Date.Day < Start_Date.Day)
+            {
+                diferencaMeses--;
+            }
 
-    public decimal Amount { get; set; }
-
-    public string? Description { get; set; }
-
-    public long AccountID { get; set; }
-
-    public TypeAccount TypeAccount { get; set; }
-
-    public DateTime Create_at { get; set; }
+            return diferencaMeses;
+        }
+    }
 }

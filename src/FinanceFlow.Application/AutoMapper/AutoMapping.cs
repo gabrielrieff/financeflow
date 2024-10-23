@@ -31,11 +31,7 @@ public class AutoMapping : Profile
             .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Distinct()));
         
         //Recurrence
-        CreateMap<RecurrenceRequestJson, Recurrence>();
-
-        //Transction
-        CreateMap<TransactionRequestJson, Transaction>();
-
+        CreateMap<AccountRequestJson, Recurrence>();
 
     }
 
@@ -45,12 +41,11 @@ public class AutoMapping : Profile
         //User
         CreateMap<User, ResponseUserProfileJson>();
 
-        //User
-
-        CreateMap<Account, ResponseAccountsJson>()
-            .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Select(tag => tag.Value)));
-
-        CreateMap<Recurrence, RecurrenceResponseJson>();
-        CreateMap<Transaction, TransactionResponseJson>();
+        //Accounts
+        //CreateMap<Account, CollectionAccountsResponseJson>()
+        //    .ForMember(dest => dest.responseAccountsJsons
+        //                            .Select(x => x.Accounts
+        //                            .Select(a => a.Tags)),
+        //               config => config.MapFrom(source => source.Tags.Select(tag => tag.Value)));
     }
 }

@@ -48,31 +48,24 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
             // Criação de conta
             var accountMapper = _mapper.Map<Account>(request);
             accountMapper.UserID = loggedUser.Id;
+            accountMapper.Status = true;
+            accountMapper.Create_at = DateTime.UtcNow;
+            accountMapper.Update_at = DateTime.UtcNow;
+
+
             var account = await _repository.Add(accountMapper);
             await _unitOfWork.Commit();
 
             // Recorrência
-            if (request.RecurrenceRequestJson is not null)
+            if (request.Start_Date != request.End_Date)
             {
-                ValidatorRecurrence(request.RecurrenceRequestJson);
-                var reccurence = _mapper.Map<Recurrence>(request.RecurrenceRequestJson);
+                var reccurence = _mapper.Map<Recurrence>(request);
                 reccurence.AccountID = account.ID;
-                //reccurence.Amount = request.Amount;
+                reccurence.Create_at = DateTime.UtcNow;
+                reccurence.Update_at = DateTime.UtcNow;
 
                 await _repositoryReccurence.Add(reccurence);
             }
-
-            // Transação
-            if (string.IsNullOrEmpty(request.TransactionRequestJson.Description))
-            {
-                throw new NotFoundException("Descrição é um valor requerido.");
-            }
-
-            var trasaction = _mapper.Map<Transaction>(request.TransactionRequestJson);
-            trasaction.AccountID = account.ID;
-            trasaction.Amount = request.Amount;
-
-            await _repositoryTransction.Add(trasaction);
 
             // Confirmação final da transação
             await _unitOfWork.CommitTransactionAsync();
@@ -89,19 +82,6 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
     private void ValidatorAccount(AccountRequestJson entiti)
     {
         var validator = new AccountRegisterValidator();
-
-        var result = validator.Validate(entiti);
-        if (result.IsValid == false)
-        {
-            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
-
-            throw new ErrorOnValidationException(errorMessages);
-        }
-    }
-    
-    private void ValidatorRecurrence(RecurrenceRequestJson entiti)
-    {
-        var validator = new ReccurenceRegisterValidator();
 
         var result = validator.Validate(entiti);
         if (result.IsValid == false)

@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using FinanceFlow.Communication.Enums;
 using FinanceFlow.Communication.Responses.Account;
 using FinanceFlow.Domain.Repositories.Accounts;
 using FinanceFlow.Domain.Repositories.Reccurences;
@@ -35,7 +36,7 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
         _loggedUser = loggedUser;
     }
 
-    public async Task<List<ResponseAccountsJson>> Execute(int month, int year)
+    public async Task<CollectionAccountsResponseJson> Execute(int month, int year)
     {
         var loggedUser = await _loggedUser.Get();
 
@@ -45,26 +46,31 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
 
         var recurrences = await _repositoryReccurence.GetMonthByID(month, year, accountsIDs);
 
-        var transactions = await _repositoryTransaction.GetMonthByID(accountsIDs);
-
-        var accountsMapper = _mapper.Map<List<ResponseAccountsJson>>(accounts);
-
-        foreach(var account in accountsMapper)
+        var accountsJson = accounts.Select(account => new AccountJson
         {
-            var recurrencesFiltered = recurrences.Where(r => r.AccountID == account.ID).FirstOrDefault();
-            if (recurrencesFiltered is not null)
+            ID = account.ID,
+            Amount = account.Amount,
+            Title = account.Title,
+            Description = account.Description,
+            TypeAccount = (TypeAccount)account.TypeAccount,
+            Tags = (ICollection<Tag>)account.Tags,
+            End_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.End_Date ?? DateTime.MinValue,
+            Start_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.Start_Date ?? DateTime.MinValue,
+        }).ToList();
+
+
+        var response = new CollectionAccountsResponseJson
+        {
+            responseAccountsJsons = new List<AccountsJson>
             {
-                account.RecurrenceResponseJson = _mapper.Map<RecurrenceResponseJson>(recurrencesFiltered);
+                new AccountsJson
+                {
+                    Month = new DateTime(year, month, 1),
+                    Accounts = accountsJson
+                }
             }
+        };
 
-            var transactionsFiltered = transactions.Where(t => t.AccountID == account.ID).ToList();
-            if (transactionsFiltered.Any())
-            {
-                account.TransactionResponseJson = _mapper.Map<List<TransactionResponseJson>>(transactionsFiltered);
-            }
-
-        }
-
-        return accountsMapper;
+        return response;
     }
 }
