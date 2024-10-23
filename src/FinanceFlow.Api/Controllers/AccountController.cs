@@ -1,5 +1,7 @@
-﻿using FinanceFlow.Application.UseCases.Accounts.GetMonth;
+﻿using FinanceFlow.Application.UseCases.Accounts.Delete;
+using FinanceFlow.Application.UseCases.Accounts.GetMonth;
 using FinanceFlow.Application.UseCases.Accounts.Register;
+using FinanceFlow.Application.UseCases.Users.DeleteUser;
 using FinanceFlow.Communication.Requests.Accounts;
 using FinanceFlow.Communication.Responses;
 using FinanceFlow.Communication.Responses.Account;
@@ -11,7 +13,6 @@ namespace FinanceFlow.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-
 public class AccountController : ControllerBase
 {
     [HttpPost]
@@ -30,7 +31,6 @@ public class AccountController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(CollectionAccountsResponseJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-
     public async Task<IActionResult> GetMonth(
         [FromQuery] int month,
         [FromQuery] int year,
@@ -47,4 +47,17 @@ public class AccountController : ControllerBase
         return NoContent();
 
     }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteAccountUseCase useCase,
+        [FromRoute] long id)
+    {
+        await useCase.Execute(id);
+
+        return NoContent();
+    }
+
 }

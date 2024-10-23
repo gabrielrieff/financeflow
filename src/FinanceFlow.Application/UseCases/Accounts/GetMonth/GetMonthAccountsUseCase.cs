@@ -14,7 +14,6 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
 
     private readonly IAccountsReadOnlyRepository _repositoryAccount;
     private readonly IReccurenceReadOnlyRepository _repositoryReccurence;
-    private readonly ITransactionReadOnlyRepository _repositoryTransaction;
 
     private readonly IMapper _mapper;
     private readonly ILoggedUser _loggedUser;
@@ -23,14 +22,12 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
     public GetMonthAccountsUseCase(
         IAccountsReadOnlyRepository repositoryAccount,
         IReccurenceReadOnlyRepository repositoryReccurence,
-        ITransactionReadOnlyRepository repositoryTransaction,
         IMapper mapper,
         ILoggedUser loggedUser)
 
     {
         _repositoryAccount = repositoryAccount;
         _repositoryReccurence = repositoryReccurence;
-        _repositoryTransaction = repositoryTransaction;
 
         _mapper = mapper;
         _loggedUser = loggedUser;

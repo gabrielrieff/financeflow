@@ -1,4 +1,5 @@
 using FinanceFlow.Application.AutoMapper;
+using FinanceFlow.Application.UseCases.Accounts.Delete;
 using FinanceFlow.Application.UseCases.Accounts.GetMonth;
 using FinanceFlow.Application.UseCases.Accounts.Register;
 using FinanceFlow.Application.UseCases.Login;
@@ -25,16 +26,6 @@ public static class DependecyInjectionExtension
     private static void AddUseCases(IServiceCollection services)
     {
 
-        //Expenses
-        //services.AddScoped<IRegisterExpensesUseCase, RegisterExpensesUseCase>();
-        //services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
-        //services.AddScoped<IGetExpenseUseCase, GetExpenseUseCase>();
-        //services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
-        //services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
-        //services.AddScoped<IGenerateExpensesReportExcelUseCase, GenerateExpensesReportExcelUseCase>();
-        //services.AddScoped<IGenerateExpensesReportPDFUseCase, GenerateExpensesReportPDFUseCase>();
-
-
         //User
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
@@ -46,6 +37,7 @@ public static class DependecyInjectionExtension
         //Acount
         services.AddScoped<IRegisterAccountUseCase, RegisterAccountUseCase>();
         services.AddScoped<IGetMonthAccountsUseCase, GetMonthAccountsUseCase>();
+        services.AddScoped<IDeleteAccountUseCase, DeleteAccountUseCase>();
 
     }
 }

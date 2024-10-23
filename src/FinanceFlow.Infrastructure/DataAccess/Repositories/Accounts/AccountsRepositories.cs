@@ -30,4 +30,23 @@ public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnl
             .Where(a => a.Create_at >= startDate && a.Create_at <= endDate && a.Status == true && a.UserID == userId)
             .ToListAsync();
     }
+
+    public async Task<Account?> GetById(User user, long id)
+    {
+        return await GetFullExpenses()
+            .FirstOrDefaultAsync(x => x.ID == id && x.UserID == user.Id);
+    }
+    public async Task DeleteById(long id)
+    {
+        var result = await _dbContext.Accounts.FirstAsync(x => x.ID == id);
+
+        _dbContext.Accounts.Remove(result);
+    }
+
+    private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Account, ICollection<Tag>> GetFullExpenses()
+    {
+        return _dbContext.Accounts
+           .Include(expense => expense.Tags);
+    }
+
 }

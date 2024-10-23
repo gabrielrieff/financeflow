@@ -42,10 +42,5 @@ public class AutoMapping : Profile
         CreateMap<User, ResponseUserProfileJson>();
 
         //Accounts
-        //CreateMap<Account, CollectionAccountsResponseJson>()
-        //    .ForMember(dest => dest.responseAccountsJsons
-        //                            .Select(x => x.Accounts
-        //                            .Select(a => a.Tags)),
-        //               config => config.MapFrom(source => source.Tags.Select(tag => tag.Value)));
     }
 }
