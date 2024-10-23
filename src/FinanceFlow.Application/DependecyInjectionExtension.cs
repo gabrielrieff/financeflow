@@ -1,4 +1,5 @@
 using FinanceFlow.Application.AutoMapper;
+using FinanceFlow.Application.UseCases.Accounts.GetMonth;
 using FinanceFlow.Application.UseCases.Accounts.Register;
 using FinanceFlow.Application.UseCases.Login;
 using FinanceFlow.Application.UseCases.Users.DeleteUser;
@@ -44,6 +45,7 @@ public static class DependecyInjectionExtension
 
         //Acount
         services.AddScoped<IRegisterAccountUseCase, RegisterAccountUseCase>();
+        services.AddScoped<IGetMonthAccountsUseCase, GetMonthAccountsUseCase>();
 
     }
 }

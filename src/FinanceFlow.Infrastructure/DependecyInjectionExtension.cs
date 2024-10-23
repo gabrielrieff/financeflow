@@ -54,20 +54,18 @@ public static class DependecyInjectionExtension
         services.AddScoped<IUserWhiteOnlyRepository, UserRepositories>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepositories>();
 
-        ////Expense
-        //services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepositories>();
-        //services.AddScoped<IExpensesWhiteOnlyRepository, ExpensesRepositories>();
-        //services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepositories>();
-
         //Account
         services.AddScoped<IAccountWhiteOnlyRepository, AccountRepositories>();
+        services.AddScoped<IAccountsReadOnlyRepository, AccountRepositories>();
 
         //Reccurence
         services.AddScoped<IReccurenceWhiteOnlyRepository, ReccurenceRepositories>();
+        services.AddScoped<IReccurenceReadOnlyRepository, ReccurenceRepositories>();
 
 
         //Transaction
         services.AddScoped<ITransactionWhiteOnlyRepository, TransactionRepositories>();
+        services.AddScoped<ITransactionReadOnlyRepository, TransactionRepositories>();
 
     }
     

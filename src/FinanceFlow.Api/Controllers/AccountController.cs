@@ -1,11 +1,17 @@
-﻿using FinanceFlow.Application.UseCases.Accounts.Register;
+﻿using FinanceFlow.Application.UseCases.Accounts.GetMonth;
+using FinanceFlow.Application.UseCases.Accounts.Register;
 using FinanceFlow.Communication.Requests.Accounts;
 using FinanceFlow.Communication.Responses;
+using FinanceFlow.Communication.Responses.Account;
+using FinanceFlow.Communication.Responses.Expenses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceFlow.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
+
 public class AccountController : ControllerBase
 {
     [HttpPost]
@@ -22,13 +28,23 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(List<ResponseAccountsJson>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+
     public async Task<IActionResult> GetMonth(
-        [FromBody] AccountRequestJson request,
-        [FromServices] IRegisterAccountUseCase useCase
+        [FromQuery] int month,
+        [FromQuery] int year,
+        [FromServices] IGetMonthAccountsUseCase useCase
         )
     {
-        var response = await useCase.Execute(request);
+        var response = await useCase.Execute(month, year);
 
-        return Created(string.Empty, response);
+        if(response.Count != 0)
+        {
+            return Ok(response);
+        }
+
+        return NoContent();
+
     }
 }
