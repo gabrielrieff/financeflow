@@ -30,4 +30,15 @@ public class ReccurenceRepositories : IReccurenceWhiteOnlyRepository, IReccurenc
              .OrderBy(r => r.Start_Date)
              .ToListAsync();
     }
+
+    public async Task<List<Recurrence>> GetGetStartAtAndEndAtByID(DateOnly start_at, DateOnly end_at, List<long> ids)
+    {
+        var start = new DateTime(start_at.Year, start_at.Month, 1);
+        var end = new DateTime(end_at.Year, end_at.Month, 30);
+
+        return await _dbContext.Recurrences
+             .Where(r => ids.Contains(r.AccountID))
+             .OrderBy(r => r.Start_Date)
+             .ToListAsync();
+    }
 }

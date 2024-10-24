@@ -1,11 +1,10 @@
 ﻿using FinanceFlow.Application.UseCases.Accounts.Delete;
 using FinanceFlow.Application.UseCases.Accounts.GetMonth;
+using FinanceFlow.Application.UseCases.Accounts.GetStartAtAndEndAt;
 using FinanceFlow.Application.UseCases.Accounts.Register;
-using FinanceFlow.Application.UseCases.Users.DeleteUser;
 using FinanceFlow.Communication.Requests.Accounts;
 using FinanceFlow.Communication.Responses;
 using FinanceFlow.Communication.Responses.Account;
-using FinanceFlow.Communication.Responses.Expenses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,6 +45,25 @@ public class AccountController : ControllerBase
 
         return NoContent();
 
+    }
+    
+    [HttpGet("get-start-at-and-end-at")]
+    [ProducesResponseType(typeof(CollectionAccountsResponseJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetStartAtAndEndAt(
+        [FromQuery] DateOnly start_at,
+        [FromQuery] DateOnly end_at,
+        [FromServices] IGetStartAtAndEndAtAccountsUseCase useCase
+        )
+    {
+        var response = await useCase.Execute(start_at, end_at);
+
+        if(response.responseAccountsJsons.Count != 0)
+        {
+            return Ok(response);
+        }
+
+        return NoContent();
     }
 
     [HttpDelete]
