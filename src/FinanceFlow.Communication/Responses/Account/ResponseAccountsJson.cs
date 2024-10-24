@@ -19,7 +19,7 @@ public class AccountJson
     public long ID { get; set; }
 
     public decimal Amount { get; set; }
-    
+
     public string Title { get; set; } = string.Empty;
 
     public string? Description { get; set; }
@@ -32,7 +32,11 @@ public class AccountJson
 
     public DateTime End_Date { get; set; }
 
-    public int Installments
+    public DateTime DateCurrent { get; set; }
+
+    public int InstallmentsCurrent { get; set; }
+
+    public int InstallmentsOverall
     {
         get
         {
@@ -46,6 +50,18 @@ public class AccountJson
             }
 
             return diferencaMeses;
+        }
+    }
+    public decimal InstallmentAmount
+    {
+        get
+        {
+            if (InstallmentsOverall == 0)
+            {
+                return Amount;
+            }
+
+            return Amount / InstallmentsOverall;
         }
     }
 }

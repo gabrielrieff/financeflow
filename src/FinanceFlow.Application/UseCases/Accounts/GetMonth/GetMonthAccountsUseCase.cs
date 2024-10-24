@@ -4,7 +4,6 @@ using FinanceFlow.Communication.Enums;
 using FinanceFlow.Communication.Responses.Account;
 using FinanceFlow.Domain.Repositories.Accounts;
 using FinanceFlow.Domain.Repositories.Reccurences;
-using FinanceFlow.Domain.Repositories.Transactions;
 using FinanceFlow.Domain.Services.LoggedUser;
 
 namespace FinanceFlow.Application.UseCases.Accounts.GetMonth;
@@ -53,6 +52,8 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
             Tags = (ICollection<Tag>)account.Tags,
             End_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.End_Date ?? DateTime.MinValue,
             Start_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.Start_Date ?? DateTime.MinValue,
+            DateCurrent = account.Create_at,
+            InstallmentsCurrent = 1
         }).ToList();
 
 
