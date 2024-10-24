@@ -2,7 +2,7 @@ using FinanceFlow.Domain.Entities;
 
 namespace FinanceFlow.Domain.Repositories.Reccurences;
 
-public interface IReccurenceWhiteOnlyRepository
+public interface IRecurrenceWhiteOnlyRepository
 {
     Task Add(Recurrence account);
     ///// <summary>

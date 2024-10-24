@@ -1,6 +1,7 @@
 ﻿using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Accounts;
 using FinanceFlow.Domain.Repositories.Reccurences;
+using FinanceFlow.Domain.Repositories.Recurrences;
 using FinanceFlow.Domain.Repositories.Transactions;
 using FinanceFlow.Domain.Repositories.Users;
 using FinanceFlow.Domain.Security.Cryptography;
@@ -57,10 +58,12 @@ public static class DependecyInjectionExtension
         //Account
         services.AddScoped<IAccountWhiteOnlyRepository, AccountRepositories>();
         services.AddScoped<IAccountsReadOnlyRepository, AccountRepositories>();
+        services.AddScoped<IAccountUpdateOnlyRepository, AccountRepositories>();
 
         //Reccurence
-        services.AddScoped<IReccurenceWhiteOnlyRepository, ReccurenceRepositories>();
-        services.AddScoped<IReccurenceReadOnlyRepository, ReccurenceRepositories>();
+        services.AddScoped<IRecurrenceWhiteOnlyRepository, ReccurenceRepositories>();
+        services.AddScoped<IRecurrenceReadOnlyRepository, ReccurenceRepositories>();
+        services.AddScoped<IRecurrenceUpdateOnlyRepository, ReccurenceRepositories>();
 
 
         //Transaction

@@ -2,6 +2,7 @@
 using FinanceFlow.Application.UseCases.Accounts.GetMonth;
 using FinanceFlow.Application.UseCases.Accounts.GetStartAtAndEndAt;
 using FinanceFlow.Application.UseCases.Accounts.Register;
+using FinanceFlow.Application.UseCases.Accounts.Update;
 using FinanceFlow.Communication.Requests.Accounts;
 using FinanceFlow.Communication.Responses;
 using FinanceFlow.Communication.Responses.Account;
@@ -74,6 +75,21 @@ public class AccountController : ControllerBase
         [FromRoute] long id)
     {
         await useCase.Execute(id);
+
+        return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+    [FromServices] IUpdateAccountUseCase useCase,
+    [FromRoute] long id,
+    [FromBody] AccountRequestJson request)
+    {
+        await useCase.Execute(id, request);
 
         return NoContent();
     }

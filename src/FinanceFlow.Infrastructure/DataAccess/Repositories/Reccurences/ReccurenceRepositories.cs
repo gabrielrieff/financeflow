@@ -1,12 +1,11 @@
 ﻿using FinanceFlow.Domain.Entities;
-using FinanceFlow.Domain.Repositories.Accounts;
 using FinanceFlow.Domain.Repositories.Reccurences;
-using FinanceFlow.Infrastructure.Migrations;
+using FinanceFlow.Domain.Repositories.Recurrences;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceFlow.Infrastructure.DataAccess.Repositories.Reccurences;
 
-public class ReccurenceRepositories : IReccurenceWhiteOnlyRepository, IReccurenceReadOnlyRepository
+public class ReccurenceRepositories : IRecurrenceWhiteOnlyRepository, IRecurrenceReadOnlyRepository, IRecurrenceUpdateOnlyRepository
 {
     private readonly FinanceFlowDbContext _dbContext;
 
@@ -26,7 +25,8 @@ public class ReccurenceRepositories : IReccurenceWhiteOnlyRepository, IReccurenc
         var endDate = startDate.AddMonths(1).AddDays(-1);
 
         return await _dbContext.Recurrences
-             .Where(r => ids.Contains(r.AccountID) && r.Start_Date <= endDate && r.End_Date >= startDate)
+             .AsNoTracking()
+             .Where(r => ids.Contains(r.AccountID))
              .OrderBy(r => r.Start_Date)
              .ToListAsync();
     }
@@ -34,11 +34,24 @@ public class ReccurenceRepositories : IReccurenceWhiteOnlyRepository, IReccurenc
     public async Task<List<Recurrence>> GetGetStartAtAndEndAtByID(DateOnly start_at, DateOnly end_at, List<long> ids)
     {
         var start = new DateTime(start_at.Year, start_at.Month, 1);
-        var end = new DateTime(end_at.Year, end_at.Month, 30);
+
+        var lastDayOfEndMonth = DateTime.DaysInMonth(end_at.Year, end_at.Month);
+        var end = new DateTime(end_at.Year, end_at.Month, lastDayOfEndMonth);
 
         return await _dbContext.Recurrences
+             .AsNoTracking()
              .Where(r => ids.Contains(r.AccountID))
              .OrderBy(r => r.Start_Date)
              .ToListAsync();
+    }
+
+    public async Task<Recurrence?> GetByIdAccount(long accountId)
+    {
+        return await _dbContext.Recurrences.FirstOrDefaultAsync(r => r.AccountID == accountId);
+    }
+
+    public void Update(Recurrence recurrence)
+    {
+        _dbContext.Recurrences.Update(recurrence);
     }
 }

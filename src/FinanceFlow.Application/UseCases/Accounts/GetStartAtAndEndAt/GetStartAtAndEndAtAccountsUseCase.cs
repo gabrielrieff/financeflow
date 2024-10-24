@@ -10,7 +10,7 @@ namespace FinanceFlow.Application.UseCases.Accounts.GetStartAtAndEndAt;
 public class GetStartAtAndEndAtAccountsUseCase : IGetStartAtAndEndAtAccountsUseCase
 {
     private readonly IAccountsReadOnlyRepository _repositoryAccount;
-    private readonly IReccurenceReadOnlyRepository _repositoryReccurence;
+    private readonly IRecurrenceReadOnlyRepository _repositoryReccurence;
 
     private readonly IMapper _mapper;
     private readonly ILoggedUser _loggedUser;
@@ -18,7 +18,7 @@ public class GetStartAtAndEndAtAccountsUseCase : IGetStartAtAndEndAtAccountsUseC
 
     public GetStartAtAndEndAtAccountsUseCase(
         IAccountsReadOnlyRepository repositoryAccount,
-        IReccurenceReadOnlyRepository repositoryReccurence,
+        IRecurrenceReadOnlyRepository repositoryReccurence,
         IMapper mapper,
         ILoggedUser loggedUser)
 

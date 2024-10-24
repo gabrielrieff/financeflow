@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceFlow.Infrastructure.DataAccess.Repositories.Accounts;
 
-public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnlyRepository
+public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnlyRepository, IAccountUpdateOnlyRepository
 {
     private readonly FinanceFlowDbContext _dbContext;
 
@@ -48,13 +48,20 @@ public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnl
     public async Task<List<Account>> GetStartAtAndEndAt(DateOnly start_at, DateOnly end_at, long userId)
     {
         var start = new DateTime(start_at.Year, start_at.Month, 1);
-        var end = new DateTime(end_at.Year, end_at.Month, 30);
+
+        var lastDayOfEndMonth = DateTime.DaysInMonth(end_at.Year, end_at.Month);
+        var end = new DateTime(end_at.Year, end_at.Month, lastDayOfEndMonth);
 
         return await _dbContext.Accounts
             .AsNoTracking()
             .Where(a => a.Create_at >= start && a.Create_at <= end && a.Status == true && a.UserID == userId)
             .OrderBy(a => a.Create_at)
             .ToListAsync();
+    }
+
+    public void Update(Account account)
+    {
+        _dbContext.Accounts.Update(account);
     }
 
     private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Account, ICollection<Tag>> GetFullExpenses()

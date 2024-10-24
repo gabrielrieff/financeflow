@@ -14,7 +14,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
 {
 
     private readonly IAccountWhiteOnlyRepository _repository;
-    private readonly IReccurenceWhiteOnlyRepository _repositoryReccurence;
+    private readonly IRecurrenceWhiteOnlyRepository _repositoryReccurence;
     private readonly ITransactionWhiteOnlyRepository _repositoryTransction;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
 
     public RegisterAccountUseCase(
                 IAccountWhiteOnlyRepository repository,
-                IReccurenceWhiteOnlyRepository repositoryReccurence,
+                IRecurrenceWhiteOnlyRepository repositoryReccurence,
                 ITransactionWhiteOnlyRepository repositoryTransction,
                 IUnitOfWork unitOfWork,
                 IMapper mapper,

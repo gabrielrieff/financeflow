@@ -3,6 +3,7 @@ using FinanceFlow.Application.UseCases.Accounts.Delete;
 using FinanceFlow.Application.UseCases.Accounts.GetMonth;
 using FinanceFlow.Application.UseCases.Accounts.GetStartAtAndEndAt;
 using FinanceFlow.Application.UseCases.Accounts.Register;
+using FinanceFlow.Application.UseCases.Accounts.Update;
 using FinanceFlow.Application.UseCases.Login;
 using FinanceFlow.Application.UseCases.Users.DeleteUser;
 using FinanceFlow.Application.UseCases.Users.GetProfile;
@@ -40,6 +41,7 @@ public static class DependecyInjectionExtension
         services.AddScoped<IGetMonthAccountsUseCase, GetMonthAccountsUseCase>();
         services.AddScoped<IDeleteAccountUseCase, DeleteAccountUseCase>();
         services.AddScoped<IGetStartAtAndEndAtAccountsUseCase, GetStartAtAndEndAtAccountsUseCase>();
+        services.AddScoped<IUpdateAccountUseCase, UpdateAccountUseCase>();
 
     }
 }
