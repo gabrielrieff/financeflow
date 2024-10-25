@@ -16,7 +16,9 @@ public class Account
 
     public ICollection<Tag> Tags { get; set; } = [];
 
-    public bool Status { get; set; }
+    public bool Recurrence { get; set; }
+
+    public int Installment {  get; set; }
 
     public DateTime Create_at { get; set; }
 
