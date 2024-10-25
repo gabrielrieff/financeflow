@@ -1,6 +1,7 @@
 using FinanceFlow.Application.AutoMapper;
 using FinanceFlow.Application.UseCases.Accounts.Delete;
 using FinanceFlow.Application.UseCases.Accounts.GetMonth;
+using FinanceFlow.Application.UseCases.Accounts.GetResumeAccountsUser;
 using FinanceFlow.Application.UseCases.Accounts.GetStartAtAndEndAt;
 using FinanceFlow.Application.UseCases.Accounts.Register;
 using FinanceFlow.Application.UseCases.Accounts.Update;
@@ -37,10 +38,11 @@ public static class DependecyInjectionExtension
         services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
 
         //Acount
-        services.AddScoped<IRegisterAccountUseCase, RegisterAccountUseCase>();
         services.AddScoped<IGetMonthAccountsUseCase, GetMonthAccountsUseCase>();
-        services.AddScoped<IDeleteAccountUseCase, DeleteAccountUseCase>();
+        services.AddScoped<IGetResumeAccountsUser, GetResumeAccountsUser>();
         services.AddScoped<IGetStartAtAndEndAtAccountsUseCase, GetStartAtAndEndAtAccountsUseCase>();
+        services.AddScoped<IRegisterAccountUseCase, RegisterAccountUseCase>();
+        services.AddScoped<IDeleteAccountUseCase, DeleteAccountUseCase>();
         services.AddScoped<IUpdateAccountUseCase, UpdateAccountUseCase>();
 
     }

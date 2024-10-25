@@ -1,5 +1,6 @@
 ﻿using FinanceFlow.Application.UseCases.Accounts.Delete;
 using FinanceFlow.Application.UseCases.Accounts.GetMonth;
+using FinanceFlow.Application.UseCases.Accounts.GetResumeAccountsUser;
 using FinanceFlow.Application.UseCases.Accounts.GetStartAtAndEndAt;
 using FinanceFlow.Application.UseCases.Accounts.Register;
 using FinanceFlow.Application.UseCases.Accounts.Update;
@@ -65,6 +66,17 @@ public class AccountController : ControllerBase
         }
 
         return NoContent();
+    }
+    
+    [HttpGet("Get-resume-accounts-user")]
+    [ProducesResponseType(typeof(CollectionAccountsResponseJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetResumeAccountsUser(
+        [FromServices] IGetResumeAccountsUser useCase
+        )
+    {
+        var response = await useCase.Execute();
+
+        return Ok(response);
     }
 
     [HttpDelete]
