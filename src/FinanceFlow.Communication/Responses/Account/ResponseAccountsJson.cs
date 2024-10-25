@@ -26,7 +26,7 @@ public class AccountJson
 
     public TypeAccount TypeAccount { get; set; }
 
-    public ICollection<Tag> Tags { get; set; } = [];
+    public List<Tag> Tags { get; set; } = [];
 
     public DateTime Start_Date { get; set; }
 

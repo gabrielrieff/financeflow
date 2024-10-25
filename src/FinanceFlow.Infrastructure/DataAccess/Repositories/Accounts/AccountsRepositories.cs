@@ -25,7 +25,7 @@ public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnl
         var startDate = new DateTime(year, month, 1);
         var endDate = startDate.AddMonths(1).AddDays(-1);
 
-        return await _dbContext.Accounts
+        return await GetFullAccount()
             .AsNoTracking()
             .Where(a => a.Create_at >= startDate && a.Create_at <= endDate && a.Status == true && a.UserID == userId)
             .ToListAsync();
@@ -33,7 +33,7 @@ public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnl
 
     public async Task<Account?> GetById(User user, long id)
     {
-        return await GetFullExpenses()
+        return await GetFullAccount()
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.ID == id && x.UserID == user.Id);
     }
@@ -52,7 +52,7 @@ public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnl
         var lastDayOfEndMonth = DateTime.DaysInMonth(end_at.Year, end_at.Month);
         var end = new DateTime(end_at.Year, end_at.Month, lastDayOfEndMonth);
 
-        return await _dbContext.Accounts
+        return await GetFullAccount()
             .AsNoTracking()
             .Where(a => a.Create_at >= start && a.Create_at <= end && a.Status == true && a.UserID == userId)
             .OrderBy(a => a.Create_at)
@@ -64,10 +64,10 @@ public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnl
         _dbContext.Accounts.Update(account);
     }
 
-    private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Account, ICollection<Tag>> GetFullExpenses()
+    private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Account, ICollection<Tag>> GetFullAccount()
     {
         return _dbContext.Accounts
-           .Include(expense => expense.Tags);
+           .Include(account => account.Tags);
     }
 
 }

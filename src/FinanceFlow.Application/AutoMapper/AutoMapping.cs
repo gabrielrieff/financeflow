@@ -1,7 +1,6 @@
 using AutoMapper;
 using FinanceFlow.Communication.Requests.Accounts;
 using FinanceFlow.Communication.Requests.Users;
-using FinanceFlow.Communication.Responses.Account;
 using FinanceFlow.Communication.Responses.Users;
 using FinanceFlow.Domain.Entities;
 
@@ -19,9 +18,6 @@ public class AutoMapping : Profile
     {
         CreateMap<RequestUserJson, User>()
             .ForMember(dest => dest.Password, config => config.Ignore());
-
-        //CreateMap<RequestExpenseJson, Expense>()
-        //    .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Distinct()));
 
         CreateMap<Communication.Enums.Tag, Tag>()
             .ForMember(dest => dest.Value, config => config.MapFrom(source => source));
