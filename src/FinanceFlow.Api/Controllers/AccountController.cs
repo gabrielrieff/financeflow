@@ -30,7 +30,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(CollectionAccountsResponseJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AccountsJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetMonth(
         [FromQuery] int month,
@@ -40,7 +40,7 @@ public class AccountController : ControllerBase
     {
         var response = await useCase.Execute(month, year);
 
-        if(response.responseAccountsJsons.Count != 0)
+        if(response.Accounts.Count != 0)
         {
             return Ok(response);
         }
@@ -69,7 +69,7 @@ public class AccountController : ControllerBase
     }
     
     [HttpGet("Get-resume-accounts-user")]
-    [ProducesResponseType(typeof(CollectionAccountsResponseJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseGetResumeAccountsUserJson), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetResumeAccountsUser(
         [FromServices] IGetResumeAccountsUser useCase
         )

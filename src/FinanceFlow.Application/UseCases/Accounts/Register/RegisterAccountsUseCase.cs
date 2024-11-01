@@ -45,18 +45,34 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
 
         try
         {
+
+            int diferencaAnos = request.End_Date.Year - request.Start_Date.Year;
+            int diferencaMeses = (diferencaAnos * 12) + request.End_Date.Month - (request.Start_Date.Month - 1);
+
+            // Se o dia da data final for menor que o dia da data inicial, subtrai um mês
+            if (request.End_Date.Day < request.Start_Date.Day)
+            {
+                diferencaMeses--;
+            }
+
             // Criação de conta
             var accountMapper = _mapper.Map<Account>(request);
             accountMapper.UserID = loggedUser.Id;
             accountMapper.Create_at = DateTime.UtcNow;
             accountMapper.Update_at = DateTime.UtcNow;
+            accountMapper.Installment = diferencaMeses;
+
+            if(diferencaMeses > 1)
+            {
+                accountMapper.Recurrence = true;
+            }
 
 
             var account = await _repository.Add(accountMapper);
             await _unitOfWork.Commit();
 
             // Recorrência
-            if (request.Start_Date != request.End_Date)
+            if (request.Start_Date.Month != request.End_Date.Month)
             {
                 var reccurence = _mapper.Map<Recurrence>(request);
                 reccurence.AccountID = account.ID;

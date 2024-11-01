@@ -32,7 +32,7 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
         _loggedUser = loggedUser;
     }
 
-    public async Task<CollectionAccountsResponseJson> Execute(int month, int year)
+    public async Task<AccountsJson> Execute(int month, int year)
     {
         var loggedUser = await _loggedUser.Get();
 
@@ -49,7 +49,7 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
             Title = account.Title,
             Description = account.Description,
             TypeAccount = (TypeAccount)account.TypeAccount,
-            Tags = (List<Tag>)account.Tags,
+            Tags = /*(List<Tag>)account.Tags*/[],
             End_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.End_Date ?? DateTime.MinValue,
             Start_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.Start_Date ?? DateTime.MinValue,
             DateCurrent = account.Create_at,
@@ -57,17 +57,12 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
         }).ToList();
 
 
-        var response = new CollectionAccountsResponseJson
-        {
-            responseAccountsJsons = new List<AccountsJson>
-            {
+        var response =
                 new AccountsJson
                 {
                     Month = new DateTime(year, month, 1),
                     Accounts = accountsJson
-                }
-            }
-        };
+                };
 
         return response;
     }

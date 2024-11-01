@@ -3,5 +3,5 @@
 namespace FinanceFlow.Application.UseCases.Accounts.GetMonth;
 public interface IGetMonthAccountsUseCase
 {
-    Task<CollectionAccountsResponseJson> Execute(int month, int year);
+    Task<AccountsJson> Execute(int month, int year);
 }

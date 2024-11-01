@@ -41,7 +41,7 @@ public class AccountRangeJson
         get
         {
             int diferencaAnos = End_Date.Year - Start_Date.Year;
-            int diferencaMeses = (diferencaAnos * 12) + End_Date.Month - Start_Date.Month;
+            int diferencaMeses = (diferencaAnos * 12) + End_Date.Month - (Start_Date.Month - 1);
 
             // Se o dia da data final for menor que o dia da data inicial, subtrai um mês
             if (End_Date.Day < Start_Date.Day)
