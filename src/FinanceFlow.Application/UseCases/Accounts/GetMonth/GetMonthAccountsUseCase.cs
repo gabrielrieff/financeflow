@@ -49,7 +49,7 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
             Title = account.Title,
             Description = account.Description,
             TypeAccount = (TypeAccount)account.TypeAccount,
-            Tags = /*(List<Tag>)account.Tags*/[],
+            Tags = account.Tags.Select(tag => (Tag)tag.Value).ToList(),
             End_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.End_Date ?? DateTime.MinValue,
             Start_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.Start_Date ?? DateTime.MinValue,
             DateCurrent = account.Create_at,

@@ -58,8 +58,8 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
             // Criação de conta
             var accountMapper = _mapper.Map<Account>(request);
             accountMapper.UserID = loggedUser.Id;
-            accountMapper.Create_at = DateTime.UtcNow;
-            accountMapper.Update_at = DateTime.UtcNow;
+            accountMapper.Create_at = DateTime.Now;
+            accountMapper.Update_at = DateTime.Now;
             accountMapper.Installment = diferencaMeses;
 
             if(diferencaMeses > 1)
@@ -76,8 +76,8 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
             {
                 var reccurence = _mapper.Map<Recurrence>(request);
                 reccurence.AccountID = account.ID;
-                reccurence.Create_at = DateTime.UtcNow;
-                reccurence.Update_at = DateTime.UtcNow;
+                reccurence.Create_at = DateTime.Now;
+                reccurence.Update_at = DateTime.Now;
 
                 await _repositoryReccurence.Add(reccurence);
             }
