@@ -54,4 +54,9 @@ public class ReccurenceRepositories : IRecurrenceWhiteOnlyRepository, IRecurrenc
     {
         _dbContext.Recurrences.Update(recurrence);
     }
+
+    public async Task<Recurrence?> GetRecurrenceById(long accountID)
+    {
+        return await _dbContext.Recurrences.AsNoTracking().FirstOrDefaultAsync(r => r.AccountID == accountID);
+    }
 }

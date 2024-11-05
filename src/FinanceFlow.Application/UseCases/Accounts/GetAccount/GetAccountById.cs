@@ -1,16 +1,16 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using FinanceFlow.Communication.Enums;
 using FinanceFlow.Communication.Responses.Account;
 using FinanceFlow.Domain.Repositories.Accounts;
 using FinanceFlow.Domain.Repositories.Reccurences;
 using FinanceFlow.Domain.Services.LoggedUser;
+using FinanceFlow.Exception.ExceptionBase;
+using Tag = FinanceFlow.Communication.Enums.Tag;
 
-namespace FinanceFlow.Application.UseCases.Accounts.GetMonth;
+namespace FinanceFlow.Application.UseCases.Accounts.GetAccount;
 
-public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
+public class GetAccountById : IGetAccountById
 {
-
     private readonly IAccountsReadOnlyRepository _repositoryAccount;
     private readonly IRecurrenceReadOnlyRepository _repositoryReccurence;
 
@@ -18,7 +18,7 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
     private readonly ILoggedUser _loggedUser;
 
 
-    public GetMonthAccountsUseCase(
+    public GetAccountById(
         IAccountsReadOnlyRepository repositoryAccount,
         IRecurrenceReadOnlyRepository repositoryReccurence,
         IMapper mapper,
@@ -32,17 +32,20 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
         _loggedUser = loggedUser;
     }
 
-    public async Task<AccountsJson> Execute(int month, int year)
+    public async Task<AccountRangeJson> Execute(long Id)
     {
         var loggedUser = await _loggedUser.Get();
+        var account = await _repositoryAccount.GetById(loggedUser, Id);
 
-        var accounts = await _repositoryAccount.GetMonth(month: month, year: year, loggedUser.Id);
+        if(account is null)
+        {
+            throw new NotFoundException("Account not found.");
+        }
 
-        var accountsIDs = accounts.Select(a => a.ID).ToList();
+        var accountsID = account.ID;
+        var recurrence = await _repositoryReccurence.GetRecurrenceById(account.ID);
 
-        var recurrences = await _repositoryReccurence.GetMonthByID(month, year, accountsIDs);
-
-        var accountsJson = accounts.Select(account => new AccountJson
+        var result = new AccountRangeJson
         {
             ID = account.ID,
             Amount = account.Amount,
@@ -50,20 +53,13 @@ public class GetMonthAccountsUseCase : IGetMonthAccountsUseCase
             Description = account.Description,
             TypeAccount = (TypeAccount)account.TypeAccount,
             Tags = account.Tags.Select(tag => (Tag)tag.Value).ToList(),
-            End_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.End_Date ?? account.Create_at,
-            Start_Date = recurrences.FirstOrDefault(endDate => endDate.AccountID == account.ID)?.Start_Date ?? account.Create_at,
+            End_Date = recurrence?.End_Date ?? account.Create_at,
+            Start_Date = recurrence?.Start_Date ?? account.Create_at,
             DateCurrent = account.Create_at,
             InstallmentsCurrent = 1
-        }).ToList();
+        };
 
+        return result;
 
-        var response =
-                new AccountsJson
-                {
-                    Month = new DateTime(year, month, 1),
-                    Accounts = accountsJson
-                };
-
-        return response;
     }
 }
