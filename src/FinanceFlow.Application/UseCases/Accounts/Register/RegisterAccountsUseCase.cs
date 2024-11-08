@@ -56,6 +56,18 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
             }
 
             // Criação de conta
+            if(request.End_Date.Month == 12)
+            {
+                var year = request.End_Date.AddYears(+1).Year;
+                var end = new DateTime(year, 1, 1).AddDays(-1);
+                request.End_Date = end;
+            }
+            else
+            {
+                var end = new DateTime(request.End_Date.Year, (request.End_Date.Month + 1), 1).AddDays(-1);
+                request.End_Date = end;
+            }
+
             var accountMapper = _mapper.Map<Account>(request);
             accountMapper.UserID = loggedUser.Id;
             accountMapper.Create_at = DateTime.Now;
