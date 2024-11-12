@@ -73,6 +73,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
             accountMapper.Create_at = DateTime.Now;
             accountMapper.Update_at = DateTime.Now;
             accountMapper.Installment = diferencaMeses;
+            accountMapper.Start_Date = request.Start_Date;
 
             if(diferencaMeses > 1)
             {

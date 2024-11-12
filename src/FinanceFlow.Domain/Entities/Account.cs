@@ -26,6 +26,8 @@ public class Account
 
     public DateTime End_Date { get; set; }
 
+    public DateTime Start_Date { get; set; }
+
     public long UserID { get; set; }
 
     public User User { get; set; } = default!;

@@ -27,8 +27,8 @@ public class AccountRepositories : IAccountWhiteOnlyRepository, IAccountsReadOnl
 
         return await GetFullAccount()
             .AsNoTracking()
-            .Where(a => a.Create_at >= startDate && a.Create_at <= endDate && a.UserID == userId ||
-                    a.Recurrence == true && a.UserID == userId && a.End_Date >= DateTime.Now)
+            .Where(a => a.Start_Date >= startDate && a.End_Date <= endDate && a.UserID == userId ||
+                    a.Recurrence == true && a.UserID == userId && a.End_Date >= endDate && a.Start_Date <= startDate)
             .ToListAsync();
     }
 
