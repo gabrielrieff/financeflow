@@ -11,4 +11,6 @@ public class User
     public string Password { get; set; } = string.Empty;
 
     public Guid UserIdentifier { get; set; }
+
+    public string CodePassword {  get; set; } = string.Empty;
 }

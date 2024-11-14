@@ -9,6 +9,7 @@ using FinanceFlow.Application.UseCases.Accounts.Update;
 using FinanceFlow.Application.UseCases.Login;
 using FinanceFlow.Application.UseCases.Users.DeleteUser;
 using FinanceFlow.Application.UseCases.Users.GetProfile;
+using FinanceFlow.Application.UseCases.Users.RecoverPassword;
 using FinanceFlow.Application.UseCases.Users.Register;
 using FinanceFlow.Application.UseCases.Users.UpdatePassword;
 using FinanceFlow.Application.UseCases.Users.UpdateProfile;
@@ -37,6 +38,7 @@ public static class DependecyInjectionExtension
         services.AddScoped<IUpdateProfileUseCase, UpdateProfileUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+        services.AddScoped<IRecoverPasswordUseCase, RecoverPasswordUseCase>();
 
         //Acount
         services.AddScoped<IGetMonthAccountsUseCase, GetMonthAccountsUseCase>();
