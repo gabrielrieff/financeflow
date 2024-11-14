@@ -15,9 +15,15 @@ using FinanceFlow.Infrastructure.DataAccess.Repositories.Users;
 using FinanceFlow.Infrastructure.Extensions;
 using FinanceFlow.Infrastructure.Security.Tokens;
 using FinanceFlow.Infrastructure.Services.LoggedUser;
+using FinanceFlow.Infrastructure.Services.SendMail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Mail;
+using System.Net;
+using FinanceFlow.Domain.Services.SendMail;
+using FinanceFlow.Domain.Services.CodeHash;
+using FinanceFlow.Infrastructure.Services.CodeHash;
 
 namespace FinanceFlow.Infrastructure;
 
@@ -31,11 +37,37 @@ public static class DependecyInjectionExtension
 
         AddRepositories(services);
         AddToken(services, configuration);
+        ConfigureServices(services, configuration);
 
         if (configuration.IsTestEnvoriment() == false)
         {
             AddDbContext(services, configuration);
         }
+    }
+
+    private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    {
+
+        var Host = configuration.GetValue<string>("Settings:Smtp:Host");
+        var Port = configuration.GetValue<int>("Settings:Smtp:Port");
+        var Username = configuration.GetValue<string>("Settings:Smtp:Username");
+        var Password = configuration.GetValue<string>("Settings:Smtp:Password");
+        var EnableSsl = configuration.GetValue<bool>("Settings:Smtp:EnableSsl");
+
+
+        services.AddScoped(provider =>
+        {
+            var smtpClient = new SmtpClient(Host)
+            {
+                Port = Port,
+                Credentials = new NetworkCredential(Username, Password),
+                EnableSsl = EnableSsl,
+                Timeout = 50000,
+                UseDefaultCredentials = false,
+            };
+            return smtpClient;
+        });
+        services.AddScoped<IEmailService, EmailService>();
     }
 
     private static void AddToken(IServiceCollection services, IConfiguration configuration)
@@ -70,6 +102,7 @@ public static class DependecyInjectionExtension
         services.AddScoped<ITransactionWhiteOnlyRepository, TransactionRepositories>();
         services.AddScoped<ITransactionReadOnlyRepository, TransactionRepositories>();
 
+        services.AddScoped<ICodeHash, CodeHash>();
     }
     
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

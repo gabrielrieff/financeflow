@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="DataAccess\Repositories\Expenses\**" />
+    <Compile Remove="Services\Smtp\**" />
     <EmbeddedResource Remove="DataAccess\Repositories\Expenses\**" />
+    <EmbeddedResource Remove="Services\Smtp\**" />
     <None Remove="DataAccess\Repositories\Expenses\**" />
+    <None Remove="Services\Smtp\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +25,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FinanceFlow.Domain\FinanceFlow.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TemplateEmail\" />
   </ItemGroup>
 
 </Project>
