@@ -1,6 +1,7 @@
 ﻿using FinanceFlow.Application.UseCases.Users.DeleteUser;
 using FinanceFlow.Application.UseCases.Users.GetProfile;
 using FinanceFlow.Application.UseCases.Users.RecoverPassword;
+using FinanceFlow.Application.UseCases.Users.RecoverPasswordWithCode;
 using FinanceFlow.Application.UseCases.Users.Register;
 using FinanceFlow.Application.UseCases.Users.UpdateProfile;
 using FinanceFlow.Communication.Requests.Users;
@@ -78,9 +79,20 @@ public class UserController : ControllerBase
     public async Task<IActionResult> RecoverPassword(
         [FromServices] IRecoverPasswordUseCase useCase,
         [FromBody] string email)
-        {
+    {
         await useCase.Execute(email);
 
         return NoContent();
-        }
+    }
+    
+    [HttpPost("recover-password-with-code")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> ChangePasswordWithCode(
+        [FromServices] IRecoverPasswordWithCodeUseCase useCase,
+        [FromBody] RequestRecoverPasswordWithCode request)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
+    }
 }

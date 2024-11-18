@@ -40,7 +40,7 @@ public class RecoverPasswordUseCase : IRecoverPasswordUseCase
 
         if(user is null)
         {
-            throw new NotFoundException("Error");
+            throw new NotFoundException("User not found!");
         }
 
         var code = _code.CreateCode();
@@ -62,6 +62,6 @@ public class RecoverPasswordUseCase : IRecoverPasswordUseCase
             RouterTemplate: htmlBody
             );
 
-        //await _unitOfWork.Commit();
+        await _unitOfWork.Commit();
     }
 }

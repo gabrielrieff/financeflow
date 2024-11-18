@@ -1,5 +1,6 @@
 ﻿using FinanceFlow.Domain.Services.CodeHash;
 using FinanceFlow.Infrastructure.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceFlow.Infrastructure.Services.CodeHash;
 
@@ -27,8 +28,15 @@ public class CodeHash : ICodeHash
 
     }
 
-    public async Task<bool> VerifyCode()
+    public async Task<bool> VerifyCode(string code, string email)
     {
-        throw new NotImplementedException();
+        var AlredyCode = await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email && u.CodePassword == code);
+
+        if (AlredyCode is not null)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
