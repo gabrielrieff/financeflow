@@ -162,4 +162,13 @@
   <data name="TAG_TYPE_NOT_SUPPORTED" xml:space="preserve">
     <value>Tag is not supported.</value>
   </data>
+  <data name="END_AT_PAST" xml:space="preserve">
+    <value>End date must be greater than or equal.</value>
+  </data>
+  <data name="START_AT_FUTERE" xml:space="preserve">
+    <value>Start date less than or equal to end date.</value>
+  </data>
+  <data name="TYPE_ACCOUNT_REQUIRED" xml:space="preserve">
+    <value>Account type must be provided.</value>
+  </data>
 </root>

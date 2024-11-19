@@ -162,4 +162,13 @@
   <data name="TAG_TYPE_NOT_SUPPORTED" xml:space="preserve">
     <value>Tag não é suportada.</value>
   </data>
+  <data name="END_AT_PAST" xml:space="preserve">
+    <value>Data de fim deve ser maior ou igual.</value>
+  </data>
+  <data name="START_AT_FUTERE" xml:space="preserve">
+    <value>Data de inicio menor ou igual a data de fim.</value>
+  </data>
+  <data name="TYPE_ACCOUNT_REQUIRED" xml:space="preserve">
+    <value>Tipo de conta deve ser fornecido.</value>
+  </data>
 </root>

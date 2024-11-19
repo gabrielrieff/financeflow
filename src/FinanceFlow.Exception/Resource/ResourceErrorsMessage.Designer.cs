@@ -115,6 +115,15 @@ namespace FinanceFlow.Exception.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End date must be greater than or equal..
+        /// </summary>
+        public static string END_AT_PAST {
+            get {
+                return ResourceManager.GetString("END_AT_PAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expenses cannot be for the future..
         /// </summary>
         public static string EXPENSES_CANNOT_FOR_THE_FUTURE {
@@ -169,6 +178,15 @@ namespace FinanceFlow.Exception.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start date less than or equal to end date..
+        /// </summary>
+        public static string START_AT_FUTERE {
+            get {
+                return ResourceManager.GetString("START_AT_FUTERE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tag is not supported..
         /// </summary>
         public static string TAG_TYPE_NOT_SUPPORTED {
@@ -183,6 +201,15 @@ namespace FinanceFlow.Exception.Resource {
         public static string TITLE_REQUIRED {
             get {
                 return ResourceManager.GetString("TITLE_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type must be provided..
+        /// </summary>
+        public static string TYPE_ACCOUNT_REQUIRED {
+            get {
+                return ResourceManager.GetString("TYPE_ACCOUNT_REQUIRED", resourceCulture);
             }
         }
         
