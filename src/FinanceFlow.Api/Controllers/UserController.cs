@@ -78,7 +78,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RecoverPassword(
         [FromServices] IRecoverPasswordUseCase useCase,
-        [FromBody] string email)
+        [FromBody] RequestRecoverPasswordJson email)
     {
         await useCase.Execute(email);
 

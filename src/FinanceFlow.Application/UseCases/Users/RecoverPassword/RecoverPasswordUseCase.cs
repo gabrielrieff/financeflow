@@ -1,4 +1,5 @@
-﻿using FinanceFlow.Domain.Repositories;
+﻿using FinanceFlow.Communication.Requests.Users;
+using FinanceFlow.Domain.Repositories;
 using FinanceFlow.Domain.Repositories.Users;
 using FinanceFlow.Domain.Security.Cryptography;
 using FinanceFlow.Domain.Services.CodeHash;
@@ -34,9 +35,9 @@ public class RecoverPasswordUseCase : IRecoverPasswordUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Execute(string request)
+    public async Task Execute(RequestRecoverPasswordJson request)
     {
-        var user = await _userReadOnlyRepository.GetUserByEmail(request);
+        var user = await _userReadOnlyRepository.GetUserByEmail(request.Email);
 
         if(user is null)
         {
