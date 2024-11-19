@@ -17,8 +17,8 @@ public class UpdateExpenseUseCaseTest
     public async Task Success()
     {
         var loggedUser = UserBuilder.Build();
-        var request = RequestExpensesJsonBuilder.Build();
-        var expense = ExpenseBuilder.Build(loggedUser);
+        var request = RequestAccountJsonBuilder.Build();
+        var expense = AccountBuilder.Build(loggedUser);
 
         var useCase = CreateUseCase(loggedUser, expense);
 
@@ -38,9 +38,9 @@ public class UpdateExpenseUseCaseTest
     public async Task Error_title_Empty()
     {
         var loggedUser = UserBuilder.Build();
-        var expense = ExpenseBuilder.Build(loggedUser);
+        var expense = AccountBuilder.Build(loggedUser);
 
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
         request.Title = string.Empty;
 
         var useCase = CreateUseCase(loggedUser);
@@ -57,7 +57,7 @@ public class UpdateExpenseUseCaseTest
     public async Task Error_Expense_Not_Found()
     {
         var loggedUser = UserBuilder.Build();
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
 
         var useCase = CreateUseCase(loggedUser);
 

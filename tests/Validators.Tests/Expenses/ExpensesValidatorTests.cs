@@ -12,7 +12,7 @@ public class ExpensesValidatorTests
     public void Success()
     {
         var validator = new ExpenseValidator();
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
 
         var result = validator.Validate(request);
 
@@ -23,7 +23,7 @@ public class ExpensesValidatorTests
     public void ErrorTitleEmpty()
     {
         var validator = new ExpenseValidator();
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
         request.Title = string.Empty;
 
         var result = validator.Validate(request);
@@ -36,7 +36,7 @@ public class ExpensesValidatorTests
     public void ErrorCreate_AtFuture()
     {
         var validator = new ExpenseValidator();
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
         request.Create_at = DateTime.UtcNow.AddDays(1);
 
         var result = validator.Validate(request);
@@ -49,7 +49,7 @@ public class ExpensesValidatorTests
     public void ErrorPaymentsTypeInvalid()
     {
         var validator = new ExpenseValidator();
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
         request.PaymentType = (PaymentType)700;
 
         var result = validator.Validate(request);
@@ -66,7 +66,7 @@ public class ExpensesValidatorTests
     public void ErrorAmountInvalid(decimal amount)
     {
         var validator = new ExpenseValidator();
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
         request.Amount = amount;
 
         var result = validator.Validate(request);
@@ -80,7 +80,7 @@ public class ExpensesValidatorTests
     public void Error_Tag_Invalid()
     {
         var validator = new ExpenseValidator();
-        var request = RequestExpensesJsonBuilder.Build();
+        var request = RequestAccountJsonBuilder.Build();
         request.Tags.Add((Tag)100);
 
         var result = validator.Validate(request);

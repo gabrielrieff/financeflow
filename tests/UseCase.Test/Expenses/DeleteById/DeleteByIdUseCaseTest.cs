@@ -17,7 +17,7 @@ public class DeleteByIdUseCaseTest
     public async Task Success()
     {
         var loggedUser = UserBuilder.Build();
-        var expenses = ExpenseBuilder.Build(loggedUser);
+        var expenses = AccountBuilder.Build(loggedUser);
 
         var useCase = CreateUseCase(loggedUser, expenses);
         var act = async () =>  await useCase.Execute(expenses.Id);
@@ -43,7 +43,7 @@ public class DeleteByIdUseCaseTest
     private DeleteExpenseUseCase CreateUseCase(User user, Expense? expense = null)
     {
         var repositoryReadOnly = new ExpensesReadOnlyRepositoryBuilder().GetById(user, expense).Build();
-        var repositoryWhiteOnly = ExpensesWhiteOnlyRepositoryBuilder.Build();
+        var repositoryWhiteOnly = AccountsWhiteOnlyRepositoryBuilder.Build();
 
         var unitOfWork = UnitOfWorkBuilder.Build();
         var mapper = MapperBuilder.Build();

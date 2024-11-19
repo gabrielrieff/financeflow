@@ -15,7 +15,7 @@ public class GetAllExpensesUseCaseTest
     public async Task Success()
     {
         var loggedUser = UserBuilder.Build();
-        var expenses = ExpenseBuilder.Collection(loggedUser);
+        var expenses = AccountBuilder.Collection(loggedUser);
         var useCase = CreateUseCase(loggedUser, expenses);
         var result = await useCase.Execute();
 

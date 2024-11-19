@@ -16,7 +16,7 @@ public class DeleteByIdUseCaseTest
     public async Task Success()
     {
         var loggedUser = UserBuilder.Build();
-        var expenses = ExpenseBuilder.Build(loggedUser);
+        var expenses = AccountBuilder.Build(loggedUser);
 
         var useCase = CreateUseCase(loggedUser, expenses);
         var result = await useCase.Execute(expenses.Id);

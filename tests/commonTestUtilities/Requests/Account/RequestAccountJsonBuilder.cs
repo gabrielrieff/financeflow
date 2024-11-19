@@ -1,20 +1,21 @@
 ﻿using Bogus;
 using FinanceFlow.Communication.Enums;
-using FinanceFlow.Communication.Requests.Expenses;
+using FinanceFlow.Communication.Requests.Accounts;
 
-namespace commonTestUtilities.Requests.Expense;
+namespace commonTestUtilities.Requests.Account;
 
-public class RequestExpensesJsonBuilder
+public class RequestAccountJsonBuilder
 {
-    public static RequestExpenseJson Build()
+    public static AccountRequestJson Build()
     {
         var faker = new Faker();
 
-        return new Faker<RequestExpenseJson>()
+        return new Faker<AccountRequestJson>()
             .RuleFor(r => r.Title, faker => faker.Commerce.ProductName())
             .RuleFor(r => r.Description, faker => faker.Commerce.ProductDescription())
-            .RuleFor(r => r.Create_at, faker => faker.Date.Past())
-            .RuleFor(r => r.PaymentType, faker => faker.PickRandom<PaymentType>())
+            .RuleFor(r => r.Start_Date, DateTime.Now)
+            .RuleFor(r => r.End_Date, DateTime.Now)
+            .RuleFor(r => r.TypeAccount, faker => faker.PickRandom<TypeAccount>())
             .RuleFor(r => r.Amount, faker => faker.Random.Decimal(min: 1, max: 1000))
             .RuleFor(r => r.Tags, faker => faker.Make(2, () => faker.PickRandom<Tag>()));
 

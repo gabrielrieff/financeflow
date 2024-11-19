@@ -1,18 +1,19 @@
 ﻿using commonTestUtilities.Entities;
 using commonTestUtilities.Mapper;
 using commonTestUtilities.Repositories;
-using commonTestUtilities.Repositories.Expenses;
-using commonTestUtilities.Requests.Expense;
+using commonTestUtilities.Repositories.Accounts;
+using commonTestUtilities.Repositories.Recurrences;
+using commonTestUtilities.Requests.Account;
 using commonTestUtilities.Services.LoggedUser;
-using FinanceFlow.Application.UseCases.Expenses.Register;
+using FinanceFlow.Application.UseCases.Accounts.Register;
 using FinanceFlow.Domain.Entities;
 using FinanceFlow.Exception.ExceptionBase;
 using FinanceFlow.Exception.Resource;
 using FluentAssertions;
 
-namespace UseCase.Test.Expenses.Register;
+namespace UseCase.Test.Accounts.Register;
 
-public class RegisterExpenseUseCaseTest
+public class RegisterAccountUseCaseTest
 {
     [Fact]
     public async Task Sucesso()
@@ -24,7 +25,7 @@ public class RegisterExpenseUseCaseTest
         var result = await useCase.Execute(request);
 
         result.Should().NotBeNull();
-        result.Title.Should().Be(request.Title);
+        result.Should().Contain("Registro concluído");
     }
 
     [Fact]
@@ -44,13 +45,15 @@ public class RegisterExpenseUseCaseTest
     }
 
 
-    private RegisterExpensesUseCase CreateUseCase(User user)
+    private RegisterAccountUseCase CreateUseCase(User user)
     {
-        var repository = AccountsWhiteOnlyRepositoryBuilder.Build();
+        var readOnlyRepoRecurrences = RecurrencesWhiteOnlyRepositoryBuilder.Build();
+        var whiteOnlyRepo = AccountsWhiteOnlyRepositoryBuilder.Build();
+
         var mapper = MapperBuilder.Build();
         var initOfWork = UnitOfWorkBuilder.Build();
         var loggedUser = LoggedUserBuilder.Build(user);
 
-        return new RegisterExpensesUseCase(repository, initOfWork, mapper, loggedUser);
+        return new RegisterAccountUseCase(whiteOnlyRepo, readOnlyRepoRecurrences, initOfWork, mapper, loggedUser);
     }
 }
