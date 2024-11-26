@@ -50,15 +50,15 @@ public class RecoverPasswordUseCase : IRecoverPasswordUseCase
 
         _userUpdateRepository.Update(user);
 
-        var template = "C:\\Users\\Gabriel-rieff\\source\\repos\\FinanceFlow\\src\\FinanceFlow.Infrastructure\\TemplateEmail\\RecoverPassword.html";
-        string htmlBody = File.ReadAllText(template);
+        var template = Path.Combine(Directory.GetCurrentDirectory(), "../FinanceFlow.Infrastructure/TemplateEmail/RecoverPassword.html");
+        var htmlBody = File.ReadAllText(template);
 
         htmlBody = htmlBody.Replace("{{name}}", user.Name);
         htmlBody = htmlBody.Replace("{{code}}", code);
 
 
         await _sendMail.SendMail(
-            emailsTo: new List<string> { user.Email },
+            emailsTo: [user.Email],
             subject: "teste",
             RouterTemplate: htmlBody
             );
