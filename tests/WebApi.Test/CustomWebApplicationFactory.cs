@@ -14,7 +14,7 @@ namespace WebApi.Test;
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     public UserIdentityManager _userIdentity { get; private set; } = default!;
-    public ExpenseIdentityManager _expenseIdentity {  get; private set; } = default!;
+    public AccountIdentityManager _accountIdentity {  get; private set; } = default!;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -45,7 +45,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         IAccessTokenGenerator AccessTokenGenerator)
     {
         var user = AddUser(dbContext, passwordEncripter, AccessTokenGenerator);
-        AddExpenses(dbContext, user, expenseId: 2, tagId: 2);
+        AddAccount(dbContext, user, accountId: 2, tagId: 2);
 
         dbContext.SaveChanges();
     }
@@ -69,20 +69,20 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         return user;
     }
 
-    private void AddExpenses(FinanceFlowDbContext dbContext, User user, long expenseId, long tagId)
+    private void AddAccount(FinanceFlowDbContext dbContext, User user, long accountId, long tagId)
     {
-        var expense = ExpenseBuilder.Build(user);
-        expense.Id = expenseId;
+        var account = AccountBuilder.Build(user);
+        account.ID = accountId;
 
-        foreach (var tag in expense.Tags)
+        foreach (var tag in account.Tags)
         {
-            tag.ExpenseId = expenseId;
+            tag.AccountId = accountId;
             tag.Id = tagId;
         };
 
-        dbContext.Expenses.Add(expense);
+        dbContext.Accounts.Add(account);
 
-        _expenseIdentity = new ExpenseIdentityManager(expense);
+        _accountIdentity = new AccountIdentityManager(account);
     }
 
 }

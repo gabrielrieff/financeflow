@@ -1,4 +1,5 @@
-﻿using FinanceFlow.Infrastructure.Security.Tokens;
+﻿using FinanceFlow.Domain.Security.Tokens;
+using FinanceFlow.Infrastructure.Security.Tokens;
 
 namespace FinanceFlow.Api.Token;
 

@@ -5,6 +5,7 @@ using FinanceFlow.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using FinanceFlow.Domain.Security.Tokens;
 
 namespace FinanceFlow.Infrastructure.Services.LoggedUser;
 

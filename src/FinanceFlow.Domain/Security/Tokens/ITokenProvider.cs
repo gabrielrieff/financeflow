@@ -1,4 +1,4 @@
-﻿namespace FinanceFlow.Infrastructure.Security.Tokens;
+﻿namespace FinanceFlow.Domain.Security.Tokens;
 public interface ITokenProvider
 {
     string TokenOnRequest();

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,19 +57,6 @@ builder.Services.AddApplication();
 
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:3000");
-                          policy.AllowAnyHeader();
-                          policy.AllowAnyMethod();
-                          policy.AllowCredentials();
-                      });
-});
-
-
 builder.Services.AddHttpContextAccessor();
 
 var signingKey = builder.Configuration.GetValue<string>("Settings:Jwt:SigningKey");
@@ -96,6 +84,18 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
+    // builder.Services.AddCors(options =>
+    // {
+    //     options.AddPolicy(name: MyAllowSpecificOrigins,
+    //         policy =>
+    //         {
+    //             policy.WithOrigins("http://localhost:3000");
+    //             policy.AllowAnyHeader();
+    //             policy.AllowAnyMethod();
+    //             policy.AllowCredentials();
+    //         });
+    // });
 }
 
 app.UseMiddleware<CultureMiddleware>();
