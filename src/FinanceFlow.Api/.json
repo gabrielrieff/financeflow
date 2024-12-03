@@ -1,0 +1,18 @@
+{
+  "ConnectionStrings": {
+    "connection": "Server=atabase-financeflow.mysql.database.azure.com;port=3306UserID=api;Password=IRqIa02WEwbazgeNRp08hIVj9J7Mgw8s;Database=financeflowdb;SslMode=Required"
+  },
+  "Settings": {
+    "Jwt": {
+      "SigningKey": "-_87rJ+~Z*[AZxaYK43Wr[5x/!nV{ocy",
+      "ExpirationMinutes": 1000
+    },
+    "Smtp": {
+      "Host": "sandbox.smtp.mailtrap.io",
+      "Port": 587,
+      "Username": "af8fa85303fffe",
+      "Password": "6f27166be14d1a",
+      "EnableSsl": true
+    }
+  }
+}
