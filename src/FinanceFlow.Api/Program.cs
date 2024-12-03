@@ -13,8 +13,6 @@ using FinanceFlow.Domain.Security.Tokens;
 using FinanceFlow.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -76,35 +74,20 @@ builder.Services.AddAuthentication(config =>
     };
 });
 
-
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    
-    // builder.Services.AddCors(options =>
-    // {
-    //     options.AddPolicy(name: MyAllowSpecificOrigins,
-    //         policy =>
-    //         {
-    //             policy.WithOrigins("http://localhost:3000");
-    //             policy.AllowAnyHeader();
-    //             policy.AllowAnyMethod();
-    //             policy.AllowCredentials();
-    //         });
-    // });
+
 }
 
 app.UseMiddleware<CultureMiddleware>();
-app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 
 app.UseAuthorization();
 
@@ -115,7 +98,6 @@ if(builder.Configuration.IsTestEnvoriment() == false)
     await MigrateDataBase();
 
 }
-
 
 app.Run();
 
