@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanceFlow.Infrastructure.Migrations
 {
     [DbContext(typeof(FinanceFlowDbContext))]
-    [Migration("20241111164736_Add-column-startDate")]
-    partial class AddcolumnstartDate
+    [Migration("20241204145941_InitialMigrations")]
+    partial class InitialMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,6 +159,10 @@ namespace FinanceFlow.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CodePassword")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Email")
                         .IsRequired()
