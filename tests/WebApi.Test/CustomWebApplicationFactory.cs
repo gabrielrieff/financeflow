@@ -14,7 +14,7 @@ namespace WebApi.Test;
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     public UserIdentityManager _userIdentity { get; private set; } = default!;
-    public AccountIdentityManager _accountIdentity {  get; private set; } = default!;
+    //public AccountIdentityManager _accountIdentity {  get; private set; } = default!;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -82,7 +82,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         dbContext.Accounts.Add(account);
 
-        _accountIdentity = new AccountIdentityManager(account);
+        //_accountIdentity = new AccountIdentityManager(account);
     }
 
 }
